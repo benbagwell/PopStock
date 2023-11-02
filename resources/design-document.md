@@ -9,6 +9,8 @@ A new warehouse can be difficult to spin up, requiring you to make difficult dec
 
 ## 2. Top Questions to Resolve in Review
 
+1. Where would caching be most useful
+
 ## 3. Use Cases
 
 _This is where we work backwards from the customer and define what our customers would like to do (and why). You may also include use cases for yourselves (as developers), or for the organization providing the product to customers._
