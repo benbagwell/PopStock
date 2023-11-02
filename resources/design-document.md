@@ -11,6 +11,7 @@ A new warehouse can be difficult to spin up, requiring you to make difficult dec
 
 1. Where would caching be most useful
 
+
 ## 3. Use Cases
 
 _This is where we work backwards from the customer and define what our customers would like to do (and why). You may also include use cases for yourselves (as developers), or for the organization providing the product to customers._
@@ -47,6 +48,10 @@ U9. As a PopStock customer, I want to select an existing warehouse and see infor
 * Individual item reports
 * Configurable warehouse spaces and layouts (the initial product will use the same basic floor plan for all warehouses)
 
+### 4.3 Stretch Goals
+* Customer information database, with endpoints and front-end pages allowing the creation of customers and pulling of customer shipping reports.
+* Automatic warehouse layout creation and display
+
 # 5. Proposed Architecture Overview
 
 The initial product will provide the minimum lovable product (MLP) including creating, updating, and deleting inventory items, updating their metrics, spinning up new warehouses, selecting their products and arranging the items on the available shelf-space.
@@ -61,7 +66,7 @@ PopStock will also provide a web interface for users to manage their warehouses 
 ## 6.1. Public Models
 ```
 //WarehouseModel 
-String id;
+String itemId;
 String name;
 int region;
 Map<ItemModel, Integer> inventory
@@ -70,7 +75,7 @@ int size
 
 ```
 //ItemModel
-String id;
+String warehouseId;
 String name;
 int regionalDemand;
 double salesForecast
@@ -90,6 +95,7 @@ String itemId // partition key, string
 String warehouseId, sort key, string
 Date date
 int count
+String customerId
 ```
 
 ## 6.2. Create Item Endpoint
@@ -151,8 +157,8 @@ int count
 ## 7.1. warehouses
 
 ```
-userId // partition key, string
-warehouseId // sort key, string
+user_id // partition key, string
+warehouse_id // sort key, string
 name // string
 region // number
 inventory // map
@@ -162,26 +168,26 @@ active // boolean
 
 ## 7.2 items
 ```
-userId // partition key, string
-itemId //  key, string
+item_id //  partition key, string
+category // sort key, string
 name // string
-regionalDemand // number
+regional_demand // number
 size // number
 weight // number
-purchaseCost // number
-baseMargin // number
-rateOfReplenishment // number
-category // string
+purchase_cost // number
+base_margin // number
+rate_of_replenishment // number
 synergy // string
 
 ```
 
 ## 7.3 shipped
 ```
-itemId // partition key, string
-warehouseId, sort key, string
+warehouse_id// partition key, string
+item_id, sort key, string
 date // string
 count // number
+customer_id // string
 
 ```
 
