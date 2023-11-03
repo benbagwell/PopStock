@@ -1,75 +1,191 @@
 # Design Document
 
-## Instructions
-
-_Replace italicized text (including this text!) with details of the design you are proposing for your team project. (Your replacement text shouldn't be in italics)._
-
-_You should take a look at the [example design document](example-design-document.md) in the same folder as this template for more guidance on the types of information to capture, and the level of detail to aim for._
-
-## _Project Title_ Design
+## PopStock Design
 
 ## 1. Problem Statement
 
-_Explain clearly what problem you are trying to solve._
+A new warehouse can be difficult to spin up, requiring you to make difficult decisions about what items you are going to stock. PopStock will solve this problem by using data to choose the most profitable items to stock, based on metrics such as margin, time-to-replenish, sales volume, item synergy, and region adjusted shipping costs.  Once a new warehouse has been spun up, users will be able to manage the inventory and generate reports.
+
 
 ## 2. Top Questions to Resolve in Review
 
-_List the most important questions you have about your design, or things that you are still debating internally that you might like help working through._
-
-1.
-2.
-3.
+1. Where would caching be most useful
 
 ## 3. Use Cases
 
 _This is where we work backwards from the customer and define what our customers would like to do (and why). You may also include use cases for yourselves (as developers), or for the organization providing the product to customers._
 
-U1. _As a [product] customer, I want to `<result>` when I `<action>`_
+U1. As a PopStock customer, I want to create new inventory items with attributes and metrics that can be used to stock warehouses
 
-U2. _As a [product] customer, I want to view my grocery list when I log into the grocery list page_
+U2. As a PopStock customer, I want to create a new warehouse with a name and a regional location
 
-U3. ...
+U3. As a PopStock customer, I want to populate a new warehouse with items selected automatically based on profitablility
+
+U4. As a PopStock customer, I want to generate a report showing inventory statistics and suggesting more profitable items available in the inventory items list
+
+U5. As a PopStock customer, I want to update the amount of available stock for each item.
+
+U6. As a PopStock customer, I want to remove items from my warehouse if no stock is currently available
+
+U7. As a PopStock customer, I want to add items to my warehouse when space is available
+
+U8. As a PopStock customer, I want to see reports on item shipments over a given time-period
+
+U9. As a PopStock customer, I want to select an existing warehouse and see information about its inventory
 
 ## 4. Project Scope
 
-_Clarify which parts of the problem you intend to solve. It helps reviewers know what questions to ask to make sure you are solving for what you say and stops discussions from getting sidetracked by aspects you do not intend to handle in your design._
-
 ### 4.1. In Scope
 
-_Which parts of the problem defined in Sections 1 and 2 will you solve with this design? This should include the base functionality of your product. What pieces are required for your product to work?_
-
-_The functionality described above should be what your design is focused on. You do not need to include the design for any out of scope features or expansions._
+* Creating inventory items, updating their metrics, and removing them when not in any warehouse
+* Creating, populating, and arranging new warehouses
+* Updating inventory, generating reports, adding and removing items from existing warehouses, and rearranging existing warehouses
 
 ### 4.2. Out of Scope
 
-_Based on your problem description in Sections 1 and 2, are there any aspects you are not planning to solve? Do potential expansions or related problems occur to you that you want to explicitly say you are not worrying about now? Feel free to put anything here that you think your team can't accomplish in the unit, but would love to do with more time._
-
-_The functionality here does not need to be accounted for in your design._
+* Automatic updating of inventory item metrics based on stock changes
+* Individual item reports
+* Configurable warehouse spaces and layouts (the initial product will use the same basic floor plan for all warehouses)
 
 # 5. Proposed Architecture Overview
 
-_Describe broadly how you are proposing to solve for the requirements you described in Section 2. This may include class diagram(s) showing what components you are planning to build. You should argue why this architecture (organization of components) is reasonable. That is, why it represents a good data flow and a good separation of concerns. Where applicable, argue why this architecture satisfies the stated requirements._
+The initial product will provide the minimum lovable product (MLP) including creating, updating, and deleting inventory items, updating their metrics, spinning up new warehouses, selecting their products and arranging the items on the available shelf-space.
 
+This will be accomplished using a RESTful API and AWS Lambda to create endpoints.
+
+Inventory item and warehouse data will be stored in DynamoDB
+
+PopStock will also provide a web interface for users to manage their warehouses and inventory.  There will be a main page showing existing warehouses, with buttons to create a new one or modify existing inventory items. The inventory item page will have buttons linking to pages to create, update, or delete existing inventory items. Clicking the button for an existing warehouse will lead to a page where you can update a warehouse's inventory, run reports, or generate a new layout.  
 # 6. API
 
 ## 6.1. Public Models
+```
+//WarehouseModel 
+String id;
+String name;
+int region;
+Map<ItemModel, Integer> inventory
+int size
+```
 
-_Define the data models your service will expose in its responses via your *`-Model`* package. These will be equivalent to the *`PlaylistModel`* and *`SongModel`* from the Unit 3 project._
+```
+//ItemModel
+String id;
+String name;
+int regionalDemand;
+double salesForecast
+double perPallet;
+double weight;
+double purchaseCost;
+double baseMargin;
+double rateOfReplenishment;
+String category
+String synergy
+boolean active
+```
 
-## 6.2. _First Endpoint_
+```
+//shippedModel
+String itemId // partition key, string
+String warehouseId, sort key, string
+Date date
+int count
+```
 
-_Describe the behavior of the first endpoint you will build into your service API. This should include what data it requires, what data it returns, and how it will handle any known failure cases. You should also include a sequence diagram showing how a user interaction goes from user to website to service to database, and back. This first endpoint can serve as a template for subsequent endpoints. (If there is a significant difference on a subsequent endpoint, review that with your team before building it!)_
+## 6.2. Create Item Endpoint
 
-_(You should have a separate section for each of the endpoints you are expecting to build...)_
+* Accepts POST requests to /items
+* Accepts input data and user info to create a new item and returns an itemModel for the logged-in user
+* 
+## 6.3 Get Item Endpoint
+* Accepts GET requests to /items/id
+* Accepts an itemId and user info and returns the relevant itemModel
 
-## 6.3 _Second Endpoint_
+## 6.4 Remove Item Endpoint
+* Accepts PUT requests to /items/id/remove
+* Accepts an itemID, sets active to false for the given item, and returns the updated itemModel for the 
 
-_(repeat, but you can use shorthand here, indicating what is different, likely primarily the data in/out and error conditions. If the sequence diagram is nearly identical, you can say in a few words how it is the same/different from the first endpoint)_
+## 6.5 Update Item Endpoint
+* Accepts PUT requests to /items/id
+* Accepts an itemId, input data, and user info, updates the item data, and returns an itemModel
+
+## 6.6 Create Warehouse Endpoint
+* Accepts POST requests to /warehouses
+* Accepts input data and user info to create a new warehouse
+* Retrieves a list of all items and calculates the most profitable selection for the given warehouse metrics
+* Returns the created warehouseModel
+
+## 6.7 Get Warehouse Endpoint
+* Accepts GET requests to /warehouses/id
+* Accepts a warehouseId and user info, and returns the relevant warehouseModel
+
+## 6.8 Delete Warehouse Endpoint
+* Accepts DELETE requests to /warehouses/id
+* Accepts a warehouseId and user info, and deletes the matching warehouse, and shipping data
+
+## 6.9 Update Warehouse Inventory Endpoint
+* Accepts PUT requests to /warehouses/id
+* Accepts a warehouseId, itemId and user info
+* Updates warehouse inventory count and returns warehouseModel
+
+## 6.10 Get WareHouse Inventory Report
+* Accepts GET requests to warehouses/id/inventory
+* Accepts a warehouseId and returns a warehouseModel
+* Calculates current inventory status for current warehouse inventory items, and pulls item data
+* Calculates item data and recommends new items to be added to the warehouse, and items to be removed
+* Returns a JSON formatted report to be formatted in the front end
+
+## 6.11 Get WareHouse Shipping Report
+ * Accepts GET requests to shipped/warehouseId/{date-range}
+ * Accepts a warehouseID and returns a warehouseModel
+ * Generates a JSON formatted report of shipping activity within the date-range to be formatted by the front end
+
+## 6.12 Get WareHouse Item Shipping Report
+* Accepts GET requests to shipped/warehouseID/itemId
+* Accepts a warehouseId and itemID and returns a list of shippedModel objects
+
+
 
 # 7. Tables
 
-_Define the DynamoDB tables you will need for the data your service will use. It may be helpful to first think of what objects your service will need, then translate that to a table structure, like with the *`Playlist` POJO* versus the `playlists` table in the Unit 3 project._
+## 7.1. warehouses
+
+```
+userId // partition key, string
+warehouseId // sort key, string
+name // string
+region // number
+inventory // map
+size // number
+active // boolean
+```
+
+## 7.2 items
+```
+userId // partition key, string
+itemId //  key, string
+name // string
+regionalDemand // number
+size // number
+weight // number
+purchaseCost // number
+baseMargin // number
+rateOfReplenishment // number
+category // string
+synergy // string
+
+```
+
+## 7.3 shipped
+```
+itemId // partition key, string
+warehouseId, sort key, string
+date // string
+count // number
+
+```
+
 
 # 8. Pages
 
-_Include mock-ups of the web pages you expect to build. These can be as sophisticated as mockups/wireframes using drawing software, or as simple as hand-drawn pictures that represent the key customer-facing components of the pages. It should be clear what the interactions will be on the page, especially where customers enter and submit data. You may want to accompany the mockups with some description of behaviors of the page (e.g. “When customer submits the submit-dog-photo button, the customer is sent to the doggie detail page”)_
+![](images/PopStock_Web_Layout.jpg)
