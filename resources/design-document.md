@@ -14,8 +14,6 @@ A new warehouse can be difficult to spin up, requiring you to make difficult dec
 
 ## 3. Use Cases
 
-_This is where we work backwards from the customer and define what our customers would like to do (and why). You may also include use cases for yourselves (as developers), or for the organization providing the product to customers._
-
 U1. As a PopStock customer, I want to create new inventory items with attributes and metrics that can be used to stock warehouses
 
 U2. As a PopStock customer, I want to create a new warehouse with a name and a regional location
@@ -49,8 +47,9 @@ U9. As a PopStock customer, I want to select an existing warehouse and see infor
 * Configurable warehouse spaces and layouts (the initial product will use the same basic floor plan for all warehouses)
 
 ### 4.3 Stretch Goals
-* Customer information database, with endpoints and front-end pages allowing the creation of customers and pulling of customer shipping reports.
+* Customer information table, with endpoints and front-end pages allowing the creation of customers and pulling of customer shipping reports.
 * Automatic warehouse layout creation and display
+* Supplier information table, with endpoints and front-end pages allowing the creation of suppliers and pulling of supplier stocking reports
 
 # 5. Proposed Architecture Overview
 
@@ -65,90 +64,110 @@ PopStock will also provide a web interface for users to manage their warehouses 
 
 ## 6.1. Public Models
 ```
-//WarehouseModel 
-String itemId;
-String name;
-int region;
+//WarehouseModel
+String userId 
+String wareHouseId
+String name
+int region
 Map<ItemModel, Integer> inventory
 int size
 ```
 
 ```
 //ItemModel
-String warehouseId;
-String name;
-int regionalDemand;
+String itemId
+String name
+int regionalDemand
 double salesForecast
-double perPallet;
-double weight;
-double purchaseCost;
-double baseMargin;
-double rateOfReplenishment;
+double perPallet
+double weight
+double purchaseCost
+double baseMargin
+double rateOfReplenishment
 String category
 String synergy
 boolean active
 ```
 
 ```
-//shippedModel
-String itemId // partition key, string
-String warehouseId, sort key, string
-Date date
+//TransactionModel
+transactionId
+String warehouseId
+String shipmentId
+String itemId
 int count
-String customerId
+Date date
+String partnerId
+String transactionType
+
 ```
 
 ## 6.2. Create Item Endpoint
 
 * Accepts POST requests to /items
 * Accepts input data and user info to create a new item and returns an itemModel for the logged-in user
-* 
+
 ## 6.3 Get Item Endpoint
-* Accepts GET requests to /items/id
+* Accepts GET requests to /items/:itemId
 * Accepts an itemId and user info and returns the relevant itemModel
 
-## 6.4 Remove Item Endpoint
-* Accepts PUT requests to /items/id/remove
-* Accepts an itemID, sets active to false for the given item, and returns the updated itemModel for the 
+## 6.4 Get All Items Endpoint
+* Accepts GET requests to /items
+* Accepts user info and return a list of all Items
 
 ## 6.5 Update Item Endpoint
-* Accepts PUT requests to /items/id
+* Accepts PUT requests to /items/:itemId
 * Accepts an itemId, input data, and user info, updates the item data, and returns an itemModel
 
 ## 6.6 Create Warehouse Endpoint
 * Accepts POST requests to /warehouses
 * Accepts input data and user info to create a new warehouse
-* Retrieves a list of all items and calculates the most profitable selection for the given warehouse metrics
 * Returns the created warehouseModel
 
 ## 6.7 Get Warehouse Endpoint
-* Accepts GET requests to /warehouses/id
+* Accepts GET requests to /warehouses/:warehouseId
 * Accepts a warehouseId and user info, and returns the relevant warehouseModel
 
-## 6.8 Delete Warehouse Endpoint
-* Accepts DELETE requests to /warehouses/id
+## 6.8 Get All Warehouses Endpoint
+* Accepts GET requests to /warehouses
+* Accepts user information and returns all warehouses associated with the account
+
+## 6.9 Delete Warehouse Endpoint
+* Accepts DELETE requests to /warehouses/warehouseId
 * Accepts a warehouseId and user info, and deletes the matching warehouse, and shipping data
 
-## 6.9 Update Warehouse Inventory Endpoint
-* Accepts PUT requests to /warehouses/id
-* Accepts a warehouseId, itemId and user info
+## 6.10 Update Warehouse Endpoint
+* Accepts PUT requests to /warehouses/:warehouseId
+* Accepts a warehouseId, allows the user to change the warehouse name, and returns the warehouseModel
+* 
+## 6.11 Update Warehouse Inventory Endpoint
+* Accepts PUT requests to /warehouses/inventory/:warehouseId
+* Accepts a warehouseId, itemIds in a map of stock change amounts for each item, a partnerID, an optional date field, and user info
+* Generates a transactionModel object and adds it to the transactions table for reporting
 * Updates warehouse inventory count and returns warehouseModel
 
-## 6.10 Get WareHouse Inventory Report
-* Accepts GET requests to warehouses/id/inventory
+## 6.12 FillWarehouseLambda
+* Accepts PUT requests to /warehouses/fill/:warehouseId
+* Accepts a warehouseId
+* If the warehouse is empty, retrieves a list of all items and calculates the most profitable selection for the given warehouse metrics
+* returns an updated warehouseModel
+
+## 6.13 Get WareHouse Inventory Report
+* Accepts GET requests to warehouses/:warehouseId/inventory
 * Accepts a warehouseId and returns a warehouseModel
 * Calculates current inventory status for current warehouse inventory items, and pulls item data
 * Calculates item data and recommends new items to be added to the warehouse, and items to be removed
 * Returns a JSON formatted report to be formatted in the front end
 
-## 6.11 Get WareHouse Shipping Report
- * Accepts GET requests to shipped/warehouseId/{date-range}
- * Accepts a warehouseID and returns a warehouseModel
+## 6.14 Get WareHouse Shipping Report
+ * Accepts GET requests to transactions/warehouseId/:date-range
+ * Accepts a warehouseID and date range.  Gets all transactions from the transactions table within the date range.
  * Generates a JSON formatted report of shipping activity within the date-range to be formatted by the front end
 
-## 6.12 Get WareHouse Item Shipping Report
-* Accepts GET requests to shipped/warehouseID/itemId
-* Accepts a warehouseId and itemID and returns a list of shippedModel objects
+## 6.15 Get WareHouse Item Shipping Report
+* Accepts GET requests to transactions/:warehouseID/:itemId
+* Accepts a warehouseId and gets all transactions from the 
+* Generates a json formatted report of shipping activity for a particular item
 
 
 
@@ -163,7 +182,7 @@ name // string
 region // number
 inventory // map
 size // number
-active // boolean
+
 ```
 
 ## 7.2 items
@@ -178,16 +197,19 @@ purchase_cost // number
 base_margin // number
 rate_of_replenishment // number
 synergy // string
-
+active // boolean
 ```
 
-## 7.3 shipped
+## 7.3 transactions
 ```
-warehouse_id// partition key, string
-item_id, sort key, string
-date // string
+transaction_id // partition key, string
+warehouse_id // sort key, string
+shipment_id // string
+item_id // string
 count // number
-customer_id // string
+date // string
+partner_id // string
+transaction_type // string
 
 ```
 
