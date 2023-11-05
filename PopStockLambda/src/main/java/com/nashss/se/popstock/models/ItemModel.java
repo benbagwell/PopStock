@@ -88,16 +88,12 @@ public class ItemModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ItemModel itemModel = (ItemModel) o;
-        return getRegionalDemand() == itemModel.getRegionalDemand() && Double.compare(itemModel.getSalesForecast(), getSalesForecast()) == 0 && Double.compare(itemModel.getPerPallet(),
-                getPerPallet()) == 0 && Double.compare(itemModel.getWeight(), getWeight()) == 0 && Double.compare(itemModel.getPurchaseCost(), getPurchaseCost()) == 0 && Double.compare(itemModel.getBaseMargin(),
-                getBaseMargin()) == 0 && Double.compare(itemModel.getRateOfReplenishment(), getRateOfReplenishment()) == 0 && isActive() == itemModel.isActive() && getItemId().equals(itemModel.getItemId())
-                && getName().equals(itemModel.getName()) && getCategory().equals(itemModel.getCategory()) && getSynergy().equals(itemModel.getSynergy());
+        return getRegionalDemand() == itemModel.getRegionalDemand() && Double.compare(itemModel.getSalesForecast(), getSalesForecast()) == 0 && Double.compare(itemModel.getPerPallet(), getPerPallet()) == 0 && Double.compare(itemModel.getWeight(), getWeight()) == 0 && Double.compare(itemModel.getPurchaseCost(), getPurchaseCost()) == 0 && Double.compare(itemModel.getBaseMargin(), getBaseMargin()) == 0 && Double.compare(itemModel.getRateOfReplenishment(), getRateOfReplenishment()) == 0 && isActive() == itemModel.isActive() && getItemId().equals(itemModel.getItemId()) && getName().equals(itemModel.getName()) && getRegionOfOrigin().equals(itemModel.getRegionOfOrigin()) && getCategory().equals(itemModel.getCategory()) && getSynergy().equals(itemModel.getSynergy());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getItemId(), getName(), getRegionalDemand(), getSalesForecast(), getPerPallet(), getWeight(), getPurchaseCost(), getBaseMargin(),
-                getRateOfReplenishment(), getCategory(), getSynergy(), isActive());
+        return Objects.hash(getItemId(), getName(), getRegionOfOrigin(), getRegionalDemand(), getSalesForecast(), getPerPallet(), getWeight(), getPurchaseCost(), getBaseMargin(), getRateOfReplenishment(), getCategory(), getSynergy(), isActive());
     }
 
     public static Builder builder() {return new Builder();}

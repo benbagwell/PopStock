@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 @JsonDeserialize(builder = CreateItemRequest.Builder.class)
 public class CreateItemRequest {
+    private final String category;
     private final String name;
     private final String regionOfOrigin;
     private final int regionalDemand;
@@ -14,7 +15,6 @@ public class CreateItemRequest {
     private final double purchaseCost;
     private final double baseMargin;
     private final double rateOfReplenishment;
-    private final String category;
     private final String synergy;
 
     public CreateItemRequest(String category, String name, String regionOfOrigin, int regionalDemand, double salesForecast, double perPallet,

@@ -14,7 +14,7 @@ class CreateItem extends BindingClass {
     }
 
     /**
-     * Add the header to the page and load the MusicPlaylistClient.
+     * Add the header to the page and load the PopStockClient.
      */
     mount() {
         document.getElementById('create').addEventListener('click', this.submit);
@@ -39,29 +39,29 @@ class CreateItem extends BindingClass {
         const category = document.getElementById('category').value;
         const regionOfOrigin = document.getElementById('region-of-origin').value;
         const regionalDemand = document.getElementById('regional-demand').value;
-        salesForecast = document.getElementById('sales-forecast').value;
-        perPallet = document.getElementById('per-pallet').value;
-        weight = document.getElementById('weight').value;
-        purchaseCost = document.getElementById('purchase-cost').value;
-        baseMargin = document.getElementById('base-margin').value;
-        rateOfReplenishment = document.getElementById('rate-of-replenishment').value;
-        synergy = document.getElementById('synergy').value;
+        const salesForecast = document.getElementById('sales-forecast').value;
+        const perPallet = document.getElementById('per-pallet').value;
+        const weight = document.getElementById('weight').value;
+        const purchaseCost = document.getElementById('purchase-cost').value;
+        const baseMargin = document.getElementById('base-margin').value;
+        const rateOfReplenishment = document.getElementById('rate-of-replenishment').value;
+        const synergy = document.getElementById('synergy').value;
 
-        const item = await this.client.createItem(name, category, regionOfOrigin, regionalDemand, salesForecast, perPallet,
-         weight, purchaseCost, baseMargin, rateOfReplenishment, synergy (error) => {
+        const item = await this.client.createItem(category,name, regionOfOrigin, regionalDemand, salesForecast, perPallet, weight, purchaseCost, baseMargin, rateOfReplenishment, synergy, (error) => {
             createButton.innerText = origButtonText;
             errorMessageDisplay.innerText = `Error: ${error.message}`;
             errorMessageDisplay.classList.remove('hidden');
-        });
+        }
+        );
         this.dataStore.set('item', item);
     }
 
 
-    redirectToViewPlaylist() {
-//        const playlist = this.dataStore.get('playlist');
-//        if (playlist != null) {
-//            window.location.href = `/playlist.html?id=${playlist.id}`;
-//        }
+    redirectToViewItems() {
+        const item = this.dataStore.get('item');
+        if (item != null) {
+            window.location.href = `/createItem`;
+        }
     }
 }
 

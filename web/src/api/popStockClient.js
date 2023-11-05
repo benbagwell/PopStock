@@ -62,20 +62,21 @@ export default class PopStockClient extends BindingClass {
         return await this.authenticator.getUserToken();
     }
 
-    async createItem(){
+    async createItem(category,name,regionOfOrigin,regionalDemand,salesForecast,perPallet,weight,purchaseCost,baseMargin,rateOfReplenishment,synergy, errorCallback){
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can create Items.");
             const response = await this.axiosClient.post(`items`, {
-                name: name,
-                regionalDemand: regionalDemand,
-                salesForecast: salesForecast,
-                perPallet: perPallet,
-                weight: weight,
-                purchaseCost: purchaseCost,
-                baseMargin: baseMargin,
-                rateOfReplenishment: rateOfReplenishment,
-                category: category,
-                synergy: synergy
+                category:category,
+                name:name,
+                regionOfOrigin:regionOfOrigin,
+                regionalDemand:regionalDemand,
+                salesForecast:salesForecast,
+                perPallet:perPallet,
+                weight:weight,
+                purchaseCost:purchaseCost,
+                baseMargin:baseMargin,
+                rateOfReplenishment:rateOfReplenishment,
+                synergy:synergy
             }, {
                 headers: {
                    Authorization: `Bearer ${token}`
@@ -83,7 +84,7 @@ export default class PopStockClient extends BindingClass {
             });
             return response.data.event;
         } catch (error) {
-            this.handleError(error, errorCallback)
+            this.handleError(error)
         }
     }
 
