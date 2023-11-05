@@ -49,6 +49,7 @@ U9. As a PopStock customer, I want to select an existing warehouse and see infor
 ### 4.3 Stretch Goals
 * Customer information table, with endpoints and front-end pages allowing the creation of customers and pulling of customer shipping reports.
 * Automatic warehouse layout creation and display
+  *Warehouses of different sizes 
 * Supplier information table, with endpoints and front-end pages allowing the creation of suppliers and pulling of supplier stocking reports
 
 # 5. Proposed Architecture Overview
@@ -70,7 +71,6 @@ String wareHouseId
 String name
 int region
 Map<ItemModel, Integer> inventory
-int size
 ```
 
 ```
