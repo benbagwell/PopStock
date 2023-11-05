@@ -77,6 +77,8 @@ int size
 //ItemModel
 String itemId
 String name
+String category
+String regionOfOrigin
 int regionalDemand
 double salesForecast
 double perPallet
@@ -84,7 +86,6 @@ double weight
 double purchaseCost
 double baseMargin
 double rateOfReplenishment
-String category
 String synergy
 boolean active
 ```
@@ -190,8 +191,10 @@ size // number
 item_id //  partition key, string
 category // sort key, string
 name // string
+region_of_origin // string
 regional_demand // number
-size // number
+sales_forecast // number
+per_pallet // number
 weight // number
 purchase_cost // number
 base_margin // number
