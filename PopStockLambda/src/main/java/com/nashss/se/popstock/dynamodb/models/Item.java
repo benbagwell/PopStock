@@ -21,6 +21,9 @@ public class Item {
     private String synergy;
     private boolean active;
 
+    public Item() {
+    }
+
     @DynamoDBHashKey(attributeName = "item_id")
     public String getItemId() {
         return itemId;

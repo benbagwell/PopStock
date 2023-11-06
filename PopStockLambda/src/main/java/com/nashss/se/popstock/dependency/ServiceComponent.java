@@ -1,6 +1,7 @@
 package com.nashss.se.popstock.dependency;
 
 import com.nashss.se.popstock.activity.CreateItemActivity;
+import com.nashss.se.popstock.activity.CreateWarehouseActivity;
 import dagger.Component;
 
 import javax.inject.Singleton;
@@ -13,5 +14,7 @@ import javax.inject.Singleton;
 public interface ServiceComponent {
 
     CreateItemActivity provideCreateItemActivity();
+
+    CreateWarehouseActivity provideCreateWarehouseActivity();
 
 }
