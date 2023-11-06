@@ -24,7 +24,6 @@ module.exports = {
   },
   entry: {
     createItem: path.resolve(__dirname, 'src', 'pages', 'createItem.js'),
-    createWarehouse: path.resolve(__dirname, 'src', 'pages', 'createWarehouse.js'),
     getWarehouses: path.resolve(__dirname, 'src', 'pages', 'getWarehouses.js'),
   },
   output: {

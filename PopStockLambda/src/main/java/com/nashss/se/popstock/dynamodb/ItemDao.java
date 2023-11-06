@@ -19,7 +19,7 @@ public class ItemDao {
         this.metricsPublisher = metricsPublisher;
     }
 
-    public Item saveItem(Item item) {
+    public Item saveItem(Item item){
         this.dynamoDBMapper.save(item);
         return item;
     }
