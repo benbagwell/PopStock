@@ -88,6 +88,23 @@ export default class PopStockClient extends BindingClass {
         }
     }
 
+    async createWarehouse(name,region, errorCallback){
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can create warehouses.");
+            const response = await this.axiosClient.post(`warehouses`, {
+                name:name,
+                region:region,
+            }, {
+                headers: {
+                   Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data.event;
+        } catch (error) {
+            this.handleError(error)
+        }
+    }
+
     handleError(error, errorCallback) {
         console.error(error);
 

@@ -60,7 +60,7 @@ class CreateItem extends BindingClass {
     redirectToViewItems() {
         const item = this.dataStore.get('item');
         if (item != null) {
-            window.location.href = `/createItem`;
+            window.location.href = `/createItem.html`;
         }
     }
 }

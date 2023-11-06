@@ -5,7 +5,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.nashss.se.popstock.activity.requests.CreateItemRequest;
 import com.nashss.se.popstock.activity.results.CreateItemResult;
 
-public class                 CreateItemLambda
+public class CreateItemLambda
         extends LambdaActivityRunner<CreateItemRequest, CreateItemResult>
         implements RequestHandler<AuthenticatedLambdaRequest<CreateItemRequest>, LambdaResponse> {
     @Override
