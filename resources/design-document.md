@@ -104,7 +104,6 @@ String transactionType
 ```
 
 ## 6.2. Create Item Endpoint
-
 * Accepts POST requests to /items
 * Accepts input data and user info to create a new item and returns an itemModel for the logged-in user
 
@@ -135,37 +134,37 @@ String transactionType
 
 ## 6.9 Delete Warehouse Endpoint
 * Accepts DELETE requests to /warehouses/warehouseId
-* Accepts a warehouseId and user info, and deletes the matching warehouse, and shipping data
+* Accepts a warehouseId and user info, and deletes the matching warehouse, inventory, and transaction data
 
 ## 6.10 Update Warehouse Endpoint
 * Accepts PUT requests to /warehouses/:warehouseId
 * Accepts a warehouseId, allows the user to change the warehouse name, and returns the warehouseModel
 * 
-## 6.11 Update Warehouse Inventory Endpoint
-* Accepts PUT requests to /warehouses/inventory/:warehouseId
+## 6.11 Update Inventory Endpoint
+* Accepts POST requests to /warehouses/:warehouseId/inventory
 * Accepts a warehouseId, itemIds in a map of stock change amounts for each item, a partnerID, an optional date field, and user info
 * Generates a transactionModel object and adds it to the transactions table for reporting
-* Updates warehouse inventory count and returns warehouseModel
+* Updates inventory quantities and returns warehouseId and updated map of inventory items
 
-## 6.12 FillWarehouseLambda
+## 6.12 Fill Inventory Endpoint
 * Accepts PUT requests to /warehouses/fill/:warehouseId
 * Accepts a warehouseId
-* If the warehouse is empty, retrieves a list of all items and calculates the most profitable selection for the given warehouse metrics
+* Retrieves a list of all items and calculates the most profitable selection for the given warehouse region
 * returns an updated warehouseModel
 
-## 6.13 Get WareHouse Inventory Report
+## 6.13 Get WareHouse Inventory Report Endpoint
 * Accepts GET requests to warehouses/:warehouseId/inventory
 * Accepts a warehouseId and returns a warehouseModel
 * Calculates current inventory status for current warehouse inventory items, and pulls item data
 * Calculates item data and recommends new items to be added to the warehouse, and items to be removed
 * Returns a JSON formatted report to be formatted in the front end
 
-## 6.14 Get WareHouse Shipping Report
+## 6.14 Get WareHouse Shipping Report Endpoint
  * Accepts GET requests to transactions/warehouseId/:date-range
  * Accepts a warehouseID and date range.  Gets all transactions from the transactions table within the date range.
  * Generates a JSON formatted report of shipping activity within the date-range to be formatted by the front end
 
-## 6.15 Get WareHouse Item Shipping Report
+## 6.15 Get WareHouse Item Shipping Report Endpoint
 * Accepts GET requests to transactions/:warehouseID/:itemId
 * Accepts a warehouseId and gets all transactions from the 
 * Generates a json formatted report of shipping activity for a particular item
@@ -181,8 +180,6 @@ user_id // partition key, string
 warehouse_id // sort key, string
 name // string
 region // number
-inventory // map
-size // number
 
 ```
 
@@ -199,11 +196,20 @@ weight // number
 purchase_cost // number
 base_margin // number
 rate_of_replenishment // number
-synergy // string
 active // boolean
 ```
 
-## 7.3 transactions
+## 7.3 inventory_items
+```
+item_id // partition key, string
+warehouse_id // sort key, string
+name // string
+category // string
+profitability // number
+quantity // string
+```
+
+## 7.4 transactions
 ```
 transaction_id // partition key, string
 warehouse_id // sort key, string
@@ -213,7 +219,6 @@ count // number
 date // string
 partner_id // string
 transaction_type // string
-
 ```
 
 
