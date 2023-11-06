@@ -30,7 +30,6 @@ public class CreateWarehouseActivity {
         newWarehouse.setWarehouseId(UUID.randomUUID().toString());
         newWarehouse.setName(createWarehouseRequest.getName());
         newWarehouse.setRegion(createWarehouseRequest.getRegion());
-        newWarehouse.setInventory(new HashMap<>());
 
         warehouseDao.saveWarehouse(newWarehouse);
 

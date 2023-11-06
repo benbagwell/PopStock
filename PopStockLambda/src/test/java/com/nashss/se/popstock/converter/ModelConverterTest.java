@@ -4,6 +4,7 @@ import com.nashss.se.popstock.converters.ModelConverter;
 import com.nashss.se.popstock.dynamodb.models.Item;
 import com.nashss.se.popstock.dynamodb.models.Warehouse;
 import com.nashss.se.popstock.models.ItemModel;
+import com.nashss.se.popstock.models.WarehouseModel;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -50,15 +51,22 @@ public class ModelConverterTest {
     public void toWarehouseModel_convertsWarehouse() {
         Warehouse warehouse = new Warehouse();
         Map<Item,Integer> inventoryMap = new HashMap();
+
         Item item = new Item();
         item.setItemId("id");
         item.setName("name");
         inventoryMap.put(item,5);
+
         warehouse.setUserId("userId");
         warehouse.setWarehouseId("warehouseId");
         warehouse.setName("name");
         warehouse.setRegion("region");
-        warehouse.setInventory(inventoryMap);
+
+        WarehouseModel warehouseModel = modelConverter.toWarehouseModel(warehouse);
+        assertEquals(warehouse.getUserId(),warehouseModel.getUserId());
+        assertEquals(warehouse.getWarehouseId(),warehouseModel.getWareHouseId());
+        assertEquals(warehouse.getName(),warehouseModel.getName());
+        assertEquals(warehouse.getRegion(),warehouseModel.getRegion());
     }
 }
 

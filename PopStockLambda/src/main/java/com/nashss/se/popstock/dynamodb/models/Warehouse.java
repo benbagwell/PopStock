@@ -1,9 +1,6 @@
 package com.nashss.se.popstock.dynamodb.models;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
 
 import java.util.Map;
 
@@ -14,7 +11,6 @@ public class Warehouse {
     private String warehouseId;
     private String name;
     private String region;
-    private Map<Item,Integer> inventory;
 
     @DynamoDBHashKey(attributeName = "user_id")
     public String getUserId() {
@@ -52,12 +48,4 @@ public class Warehouse {
         this.region = region;
     }
 
-    @DynamoDBAttribute(attributeName = "inventory")
-    public Map<Item, Integer> getInventory() {
-        return inventory;
-    }
-
-    public void setInventory(Map<Item, Integer> inventory) {
-        this.inventory = inventory;
-    }
 }

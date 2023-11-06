@@ -28,7 +28,7 @@ public class CreateItemActivityTest {
     }
 
     @Test
-    public void handleRequest_withNoNull_createsAndSavesItem() {
+    public void handleRequest_createsAndSavesItem() {
         String expectedName = "name";
         String expectedRegionOfOrigin = "regionOfOrigin";
         String expectedCategory = "category";

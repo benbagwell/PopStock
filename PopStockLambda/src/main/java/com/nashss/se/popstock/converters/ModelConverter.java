@@ -30,7 +30,6 @@ public class ModelConverter {
                 .withWarehouseId(warehouse.getWarehouseId())
                 .withName(warehouse.getName())
                 .withRegion(warehouse.getRegion())
-                .withInventory(warehouse.getInventory())
                 .build();
     }
 }
