@@ -8,4 +8,4 @@
  */
 
 rootProject.name = 'PopStock'
-include('app')
+include('PopStockLambda')

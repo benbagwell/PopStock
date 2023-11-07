@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="assets/createItem.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body class="background">
+<header class="header" id="header"></header>
+<div class="card">
+    <h2>Create Item</h2>
+    <form class="card-content" id="create-item-form">
+        <p class="hidden error" id="error-message"> </p>
+        <p class="form-field">
+            <label>Item Name</label>
+            <input type="text" required class="validated-field" id="name" placeholder=""
+                   autofocus>
+        </p>
+        <p class="form-field">
+            <label>Category</label>
+            <input type="text" required class="validated-field" id="category" placeholder=""
+                   autofocus>
+        </p>
+        <p class="form-field">
+            <label>Region of Origin</label>
+            <input type="text" required class="validated-field" id="region-of-origin" placeholder=""
+                   autofocus>
+        </p>
+        <p class="form-field">
+            <label>Regional Demand</label>
+            <input type="number" required class="validated-field" id="regional-demand" placeholder=""
+                   autofocus>
+        </p>
+        <p class="form-field">
+            <label>Sales Forecast</label>
+            <input type="number" required class="validated-field" id="sales-forecast" placeholder=""
+                   autofocus>
+        </p>
+        <p class="form-field">
+            <label>Items per Pallet</label>
+            <input type="number" required class="validated-field" id="per-pallet" placeholder=""
+                   autofocus>
+        </p>
+        <p class="form-field">
+            <label>Pallet Weight(lbs)</label>
+            <input type="number" required class="validated-field" id="weight" placeholder=""
+                   autofocus>
+        </p>
+        <p class="form-field">
+            <label>Wholesale Cost(per Item)</label>
+            <input type="number" required class="validated-field" id="purchase-cost" placeholder=""
+                   autofocus>
+        </p>
+        <p class="form-field">
+            <label>Expected Margin(excl. shipping)</label>
+            <input type="number" required class="validated-field" id="base-margin" placeholder=""
+                   autofocus>
+        </p>
+        <p class="form-field">
+            <label>Rate of Replenishment</label>
+            <input type="number" required class="validated-field" id="rate-of-replenishment" placeholder=""
+                   autofocus>
+        </p>
+        <p class="form-field">
+            <label>Synergy Encoding</label>
+            <input type="text" required class="validated-field" id="synergy" placeholder=""
+                   autofocus>
+        </p>
+        <p>
+            <a href="#" class="button" id="create">Create Item</a>
+        </p>
+    </form>
+</div>
+</body>
+
+</html>

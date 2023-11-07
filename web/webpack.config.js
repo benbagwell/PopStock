@@ -23,9 +23,9 @@ module.exports = {
     usedExports: true
   },
   entry: {
-    createPlaylist: path.resolve(__dirname, 'src', 'pages', 'createPlaylist.js'),
-    viewPlaylist: path.resolve(__dirname, 'src', 'pages', 'viewPlaylist.js'),
-    searchPlaylists: path.resolve(__dirname, 'src', 'pages', 'searchPlaylists.js'),
+    createItem: path.resolve(__dirname, 'src', 'pages', 'createItem.js'),
+    createWarehouse: path.resolve(__dirname, 'src', 'pages', 'createWarehouse.js'),
+    getWarehouses: path.resolve(__dirname, 'src', 'pages', 'getWarehouses.js'),
   },
   output: {
     path: path.resolve(__dirname, 'build', 'assets'),
