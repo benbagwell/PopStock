@@ -44,7 +44,6 @@ public class CreateWarehouseActivityTest {
         verify(warehouseDao).saveWarehouse(any(Warehouse.class));
 
         assertNotNull(result.getWarehouse().getWareHouseId());
-        assertEquals(expectedUserId,result.getWarehouse().getUserId());
         assertEquals(expectedName,result.getWarehouse().getName());
         assertEquals(expectedRegion,result.getWarehouse().getRegion());
         

@@ -63,7 +63,6 @@ public class ModelConverterTest {
         warehouse.setRegion("region");
 
         WarehouseModel warehouseModel = modelConverter.toWarehouseModel(warehouse);
-        assertEquals(warehouse.getUserId(),warehouseModel.getUserId());
         assertEquals(warehouse.getWarehouseId(),warehouseModel.getWareHouseId());
         assertEquals(warehouse.getName(),warehouseModel.getName());
         assertEquals(warehouse.getRegion(),warehouseModel.getRegion());

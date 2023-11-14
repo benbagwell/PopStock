@@ -6,7 +6,7 @@ export default class PopStockClient extends BindingClass {
     constructor(props = {}) {
         super();
 
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createItem'];
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createItem', 'createWarehouse', 'getWarehouses'];
         this.bindClassMethods(methodsToBind, this);
 
         this.authenticator = new Authenticator();;
@@ -100,6 +100,20 @@ export default class PopStockClient extends BindingClass {
                 }
             });
             return response.data.event;
+        } catch (error) {
+            this.handleError(error)
+        }
+    }
+
+    async getWarehouses(){
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can get Goal summaries.");
+            const response = await this.axiosClient.get(`warehouses`, {
+                headers: {
+                   Authorization: `Bearer ${token}`
+                }}
+                );
+            return response.data.warehousesModel;
         } catch (error) {
             this.handleError(error)
         }

@@ -26,7 +26,6 @@ public class ModelConverter {
 
     public WarehouseModel toWarehouseModel(Warehouse warehouse) {
         return WarehouseModel.builder()
-                .withUserId(warehouse.getUserId())
                 .withWarehouseId(warehouse.getWarehouseId())
                 .withName(warehouse.getName())
                 .withRegion(warehouse.getRegion())

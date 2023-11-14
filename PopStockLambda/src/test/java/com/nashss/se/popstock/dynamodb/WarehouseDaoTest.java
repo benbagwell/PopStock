@@ -1,14 +1,22 @@
 package com.nashss.se.popstock.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
 import com.nashss.se.popstock.dynamodb.models.Warehouse;
 import com.nashss.se.popstock.metrics.MetricsPublisher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
 
 public class WarehouseDaoTest {
@@ -18,6 +26,9 @@ public class WarehouseDaoTest {
 
     @Mock
     private MetricsPublisher metricsPublisher;
+
+    @Mock
+    private PaginatedQueryList<Warehouse> queryList;
 
     private WarehouseDao warehouseDao;
 
@@ -36,5 +47,14 @@ public class WarehouseDaoTest {
 
         verify(dynamoDBMapper).save(warehouse);
         assertEquals(warehouse,result);
+    }
+
+    @Test
+    public void getWarehouses_verifiesMapperQuery() {
+        DynamoDBQueryExpression<Warehouse> queryExpression = new DynamoDBQueryExpression<>();
+        when(dynamoDBMapper.query(Warehouse.class, queryExpression)).thenReturn(queryList);
+
+        List<Warehouse> warehouses = warehouseDao.getWarehouses("userId");
+        verify(dynamoDBMapper).query(any(), any());
     }
 }
