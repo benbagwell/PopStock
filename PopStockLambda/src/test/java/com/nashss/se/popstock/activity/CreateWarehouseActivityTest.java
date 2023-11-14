@@ -43,7 +43,7 @@ public class CreateWarehouseActivityTest {
 
         verify(warehouseDao).saveWarehouse(any(Warehouse.class));
 
-        assertNotNull(result.getWarehouse().getWareHouseId());
+        assertNotNull(result.getWarehouse().getWarehouseId());
         assertEquals(expectedName,result.getWarehouse().getName());
         assertEquals(expectedRegion,result.getWarehouse().getRegion());
         

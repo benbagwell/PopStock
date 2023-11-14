@@ -4,6 +4,7 @@ import com.nashss.se.popstock.activity.CreateItemActivity;
 import com.nashss.se.popstock.activity.CreateWarehouseActivity;
 
 import com.nashss.se.popstock.activity.GetAllWarehousesActivity;
+import com.nashss.se.popstock.activity.GetWarehouseActivity;
 import dagger.Component;
 
 import javax.inject.Singleton;
@@ -20,5 +21,7 @@ public interface ServiceComponent {
     CreateWarehouseActivity provideCreateWarehouseActivity();
 
     GetAllWarehousesActivity provideGetAllWarehousesActivity();
+
+    GetWarehouseActivity provideGetWarehouseActivity();
 
 }

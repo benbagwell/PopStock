@@ -26,6 +26,14 @@ public class WarehouseDao {
         return warehouse;
     }
 
+    public Warehouse getWarehouse(String userId, String warehouseId) {
+        Warehouse warehouse = new Warehouse();
+        warehouse.setUserId(userId);
+        warehouse.setWarehouseId(warehouseId);
+
+       return this.dynamoDBMapper.load(warehouse);
+    }
+
     public List<Warehouse> getWarehouses(String userId) {
         Warehouse warehousePartition = new Warehouse();
         warehousePartition.setUserId(userId);
