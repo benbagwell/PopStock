@@ -1,0 +1,23 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+Actor Client as client
+participant "API Gateway/Lambda" as api
+participant "CreateItemActivity" as activity
+participant "ItemDao" as dao
+database dynamodb
+
+client -> api : HTTP POST Request
+api -> activity : CreateItemRequest
+activity ->  dao : saveItem(item)
+dao -> dynamodb : store item
+dynamodb --> dao: return 200 response
+dao --> activity: return Item object
+activity -> activity : create ItemModel with Item
+activity -> activity : Create CreateItemResponse with ItemModel
+activity --> api : return CreateItemResponse
+api --> client : return 200 response with CreateItemResponse data
+
+@enduml

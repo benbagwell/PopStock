@@ -4,188 +4,185 @@
 
 ## 1. Problem Statement
 
-A new warehouse can be difficult to spin up, requiring you to make difficult decisions about what items you are going to stock. PopStock will solve this problem by using data to choose the most profitable items to stock, based on metrics such as margin, time-to-replenish, sales volume, item synergy, and region adjusted shipping costs.  Once a new warehouse has been spun up, users will be able to manage the inventory and generate reports.
+A new warehouse can be difficult to spin up, requiring you to make difficult decisions about what items you are going to stock. PopStock will solve this problem by using data to choose the most profitable items to stock, based on metrics such as margin, time-to-replenish, sales volume, item synergy, and region adjusted shipping costs.  PopStock allows business owners to make logistics focused, data driven decisions about what products would be most lucrative.
 
+## 2. Use Cases
 
-## 2. Top Questions to Resolve in Review
-
-1. Where would caching be most useful
-
-## 3. Use Cases
-
-_This is where we work backwards from the customer and define what our customers would like to do (and why). You may also include use cases for yourselves (as developers), or for the organization providing the product to customers._
-
-U1. As a PopStock customer, I want to create new inventory items with attributes and metrics that can be used to stock warehouses
+U1. As a PopStock customer, I want to create new items with attributes and metrics that can be used to stock warehouses
 
 U2. As a PopStock customer, I want to create a new warehouse with a name and a regional location
 
-U3. As a PopStock customer, I want to populate a new warehouse with items selected automatically based on profitablility
+U3. As a PopStock customer, I want to populate a new warehouse with items selected automatically based on profitability
 
-U4. As a PopStock customer, I want to generate a report showing inventory statistics and suggesting more profitable items available in the inventory items list
+U4. As a PopStock customer, I want to select an existing warehouse and see information about its inventory
 
-U5. As a PopStock customer, I want to update the amount of available stock for each item.
+U5. As a PopStock customer, I want to generate a report showing warehouse inventory information and suggesting more profitable items available in the items list
 
-U6. As a PopStock customer, I want to remove items from my warehouse if no stock is currently available
+U6. As a PopStock customer, I want to remove items from my warehouse
 
 U7. As a PopStock customer, I want to add items to my warehouse when space is available
 
-U8. As a PopStock customer, I want to see reports on item shipments over a given time-period
+U8. As a PopStock customer, I want to be able to rename an existing warehouse
 
-U9. As a PopStock customer, I want to select an existing warehouse and see information about its inventory
+U9. As a PopStock customer, I want to be able to update item information and metrics
 
-## 4. Project Scope
+U10. As a PopStock customer, I want to be able to delete an existing warehouse, and its inventory
 
-### 4.1. In Scope
 
-* Creating inventory items, updating their metrics, and removing them when not in any warehouse
-* Creating, populating, and arranging new warehouses
-* Updating inventory, generating reports, adding and removing items from existing warehouses, and rearranging existing warehouses
+## 3. Project Scope
 
-### 4.2. Out of Scope
+### 3.1. In Scope
 
-* Automatic updating of inventory item metrics based on stock changes
+* Creating and removing inventory items for each warehouses
+* Creating, deleting, and renaming Warehouses
+* Creating transactions representing incoming and outgoing item shipments, and adjusting on-hand inventory item numbers accordingly
+* Generating HTML inventory shipping reports with custom time periods
+* Using third-party API to generate and download PDF document of inventory report
+
+### 3.2. Out of Scope
+
 * Individual item reports
-* Configurable warehouse spaces and layouts (the initial product will use the same basic floor plan for all warehouses)
+* Configurable warehouse sizes and layouts (the initial product will use the same basic warehouse size/floor plan for all warehouses)
 
-# 5. Proposed Architecture Overview
+### 3.3 Stretch Goals
+* Automatic warehouse layout creation and display, using machine learning to generate efficient layouts
+* Item recommendation service, which can autopopulate a warehouse based on data metrics
+* Customer information table, with endpoints and front-end pages allowing the creation of customers and pulling of customer shipping reports.
+* Supplier information table, with endpoints and front-end pages allowing the creation of suppliers and pulling of supplier stocking reports
 
-The initial product will provide the minimum lovable product (MLP) including creating, updating, and deleting inventory items, updating their metrics, spinning up new warehouses, selecting their products and arranging the items on the available shelf-space.
+# 4. Proposed Architecture Overview
 
-This will be accomplished using a RESTful API and AWS Lambda to create endpoints.
+The initial product will provide the minimum lovable product (MLP) including creating, updating, and deleting warehouses. 
+It will also allow adding and removing items to warehouse inventories, tracking their quantities on hand, tracking incoming and outgoing shipments, and generating time-based shipping reports.
 
-Inventory item and warehouse data will be stored in DynamoDB
+This will be accomplished using a RESTful API Gateway and AWS Lambda to  create endpoints.  The product stack will be deployed into an S3 bucket using CloudFormation
 
-PopStock will also provide a web interface for users to manage their warehouses and inventory.  There will be a main page showing existing warehouses, with buttons to create a new one or modify existing inventory items. The inventory item page will have buttons linking to pages to create, update, or delete existing inventory items. Clicking the button for an existing warehouse will lead to a page where you can update a warehouse's inventory, run reports, or generate a new layout.  
-# 6. API
+inventoryItem, transaction, and warehouse data will be stored in DynamoDB
 
-## 6.1. Public Models
+PopStock will also provide a web interface for users to manage their warehouses, and inventories.  There will be a main page showing existing warehouses, with buttons to create a new one or to modify and existing one.
+Clicking the button for an existing warehouse will lead to a page where you can update a warehouse's inventory, with buttons leading to pages for Inventory Item creation and shipping reports
+
+# 5. API
+
+## 5.1. Public Models
 ```
-//WarehouseModel 
-String id;
-String name;
-int region;
-Map<ItemModel, Integer> inventory
-int size
-```
-
-```
-//ItemModel
-String id;
-String name;
-int regionalDemand;
-double salesForecast
-double perPallet;
-double weight;
-double purchaseCost;
-double baseMargin;
-double rateOfReplenishment;
-String category
-String synergy
-boolean active
+//WarehouseModel
+String userId 
+String wareHouseId
+String name
 ```
 
 ```
-//shippedModel
-String itemId // partition key, string
-String warehouseId, sort key, string
-Date date
+//TransactionModel
+transactionId
+String warehouseId
+String shipmentId
+String itemId
 int count
+Date date
+String partnerId
+String transactionType
 ```
 
-## 6.2. Create Item Endpoint
+```
+//InventoryItemModel
+String itemId
+String warehouseId
+String name
+String category
+```
 
-* Accepts POST requests to /items
+## 5.2. Create Inventory Item Endpoint
+* Accepts POST requests to /warehouses/:warehouseId/inventory
 * Accepts input data and user info to create a new item and returns an itemModel for the logged-in user
-* 
-## 6.3 Get Item Endpoint
-* Accepts GET requests to /items/id
-* Accepts an itemId and user info and returns the relevant itemModel
+![](CreateItemSequenceDiagram.png)
 
-## 6.4 Remove Item Endpoint
-* Accepts PUT requests to /items/id/remove
-* Accepts an itemID, sets active to false for the given item, and returns the updated itemModel for the 
+## 5.3 Get All Inventory Items Endpoint
+* Accepts Get requests to /warehouses/:warehouseId/inventory
+* Accepts a warehouseId and user info and returns a lit of all inventoryItems for the warehouse
+  *if the warehouseId is not found, will throw 'WarehouseNotFoundException'
 
-## 6.5 Update Item Endpoint
-* Accepts PUT requests to /items/id
-* Accepts an itemId, input data, and user info, updates the item data, and returns an itemModel
-
-## 6.6 Create Warehouse Endpoint
+## 5.4 Remove Inventory Items Endpoint
+* Accepts Delete requests to /warehouses/:warehouseId/:inventoryItemId
+* Accepts a warehouseId, a list of inventoryItemIds, and user info, and deletes the inventory items from the inventory_items table
+* Returns a json the warehouse ID, name, and list containing the current warehouse inventory of itemModels
+  * if the warehouseId is not found, will throw 'WarehouseNotFoundException'
+  * if the inventoryItemId is not found, will throw 'inventoryItemNotFoundException'
+  
+## 5.5 Create Warehouse Endpoint
 * Accepts POST requests to /warehouses
 * Accepts input data and user info to create a new warehouse
-* Retrieves a list of all items and calculates the most profitable selection for the given warehouse metrics
 * Returns the created warehouseModel
 
-## 6.7 Get Warehouse Endpoint
-* Accepts GET requests to /warehouses/id
+## 5.6 Get Warehouse Endpoint
+* Accepts GET requests to /warehouses/:warehouseId
 * Accepts a warehouseId and user info, and returns the relevant warehouseModel
+  * if the warehouseId is not found, will throw 'WarehouseNotFoundException'
 
-## 6.8 Delete Warehouse Endpoint
-* Accepts DELETE requests to /warehouses/id
-* Accepts a warehouseId and user info, and deletes the matching warehouse, and shipping data
+## 5.7 Get All Warehouses Endpoint
+* Accepts GET requests to /warehouses
+* Accepts user information and returns a list all warehouses associated with the account
 
-## 6.9 Update Warehouse Inventory Endpoint
-* Accepts PUT requests to /warehouses/id
-* Accepts a warehouseId, itemId and user info
-* Updates warehouse inventory count and returns warehouseModel
+## 5.8 Delete Warehouse Endpoint
+* Accepts DELETE requests to /warehouses/:warehouseId
+* Accepts a warehouseId and user info, and deletes the matching warehouse, inventory, and transactions
+  *  if the warehouseId is not found, will throw 'WarehouseNotFoundException'
 
-## 6.10 Get WareHouse Inventory Report
-* Accepts GET requests to warehouses/id/inventory
-* Accepts a warehouseId and returns a warehouseModel
-* Calculates current inventory status for current warehouse inventory items, and pulls item data
-* Calculates item data and recommends new items to be added to the warehouse, and items to be removed
-* Returns a JSON formatted report to be formatted in the front end
+## 5.9 Update Warehouse Endpoint
+* Accepts PUT requests to /warehouses/:warehouseId
+* Accepts a warehouseId, allows the user to change the warehouse name, and returns a warehouseModel
+  * if the warehouseId is not found, will throw 'WarehouseNotFoundException'`
 
-## 6.11 Get WareHouse Shipping Report
- * Accepts GET requests to shipped/warehouseId/{date-range}
- * Accepts a warehouseID and returns a warehouseModel
- * Generates a JSON formatted report of shipping activity within the date-range to be formatted by the front end
+## 5.10 Create Transaction Endpoint
+* Accepts a post request to /warehouses/:warehouseId/transactions
+* Accepts a map of InventoryItems to integers
+* Creates a transaction table entry for each item and adjusts the InventoryItem quantity
+* Returns an updated list of InventoryItems
+  * if the warehouseId is not found, will throw 'WarehouseNotFoundException'
+  * if the inventoryItemId is not found, will throw 'inventoryItemNotFoundException'
 
-## 6.12 Get WareHouse Item Shipping Report
-* Accepts GET requests to shipped/warehouseID/itemId
-* Accepts a warehouseId and itemID and returns a list of shippedModel objects
+## 6.11 Get Shipping Report
+* Accepts GET requests to warehouses/:warehouseId/{dateRange}
+* Accepts a warehouseID
+* Returns a json formatted report of transactions
+  * if the warehouseId is not found, will throw 'WarehouseNotFoundException'
 
+## 6.12 Get Shipping Report PDF
+* Accepts GET requests to warehouses/:warehouseId/{dateRange}/pdf
+* Accepts a warehouseID
+* Creates a request to a third-party API service and generates a pdf to be downloaded by the user's browser
+  * if the warehouseId is not found, will throw 'WarehouseNotFoundException'
+  
+# 6. Tables
 
-
-# 7. Tables
-
-## 7.1. warehouses
+## 6.1. warehouses
 
 ```
-userId // partition key, string
-warehouseId // sort key, string
+user_id // partition key, string
+warehouse_id // sort key, string
 name // string
-region // number
-inventory // map
-size // number
-active // boolean
+region // String
 ```
 
-## 7.2 items
+## 6.2 inventory_items
 ```
-userId // partition key, string
-itemId //  key, string
+item_id // partition key, string
+warehouse_id // sort key, string
 name // string
-regionalDemand // number
-size // number
-weight // number
-purchaseCost // number
-baseMargin // number
-rateOfReplenishment // number
 category // string
-synergy // string
-
 ```
 
-## 7.3 shipped
+## 6.3 transactions
 ```
-itemId // partition key, string
-warehouseId, sort key, string
-date // string
+transaction_id // partition key, string
+warehouse_id // sort key, string
+shipment_id // string
+item_id // string
 count // number
+date // string
+partner_id // string
+transaction_type // string
 
-```
-
-
-# 8. Pages
+# 7. Pages
 
 ![](images/PopStock_Web_Layout.jpg)
