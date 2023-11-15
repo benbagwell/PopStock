@@ -27,11 +27,8 @@ public class WarehouseDao {
     }
 
     public Warehouse getWarehouse(String userId, String warehouseId) {
-        Warehouse warehouse = new Warehouse();
-        warehouse.setUserId(userId);
-        warehouse.setWarehouseId(warehouseId);
 
-       return this.dynamoDBMapper.load(warehouse);
+       return this.dynamoDBMapper.load(Warehouse.class,userId,warehouseId);
     }
 
     public List<Warehouse> getWarehouses(String userId) {
@@ -43,4 +40,5 @@ public class WarehouseDao {
 
         return this.dynamoDBMapper.query(Warehouse.class, dynamoDBQueryExpression);
     }
+
 }

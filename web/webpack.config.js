@@ -26,7 +26,7 @@ module.exports = {
     createItem: path.resolve(__dirname, 'src', 'pages', 'createItem.js'),
     createWarehouse: path.resolve(__dirname, 'src', 'pages', 'createWarehouse.js'),
     getWarehouses: path.resolve(__dirname, 'src', 'pages', 'getWarehouses.js'),
-    updateWarehouse: path.resolve(__dirname, 'src', 'pages', 'updateWarehouse.js')
+    updateWarehouse: path.resolve(__dirname, 'src', 'pages', 'updateWarehouse.js'),
   },
   output: {
     path: path.resolve(__dirname, 'build', 'assets'),

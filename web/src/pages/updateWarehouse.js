@@ -12,7 +12,7 @@ class UpdateWarehouse extends BindingClass {
     }
 
     mount() {
-        document.getElementById('update').addEventListener('click',this.submit)
+        document.getElementById('update').addEventListener('click', this.submit)
 
         this.header.addHeaderToPage();
 
@@ -22,18 +22,20 @@ class UpdateWarehouse extends BindingClass {
 
     async clientLoaded() {
         const urlParams = new URLSearchParams(window.location.search);
-        const warehouseId = urlParams.get('warehouse');
-        const warehouse = await this.client.getWarehouse(warehouseId);
-        this.dataStore.setState('warehouse', warehouse);
-        document.getElementById('warehouse-name').ariaPlaceholder = warehouse.name;
+        const warehouse = urlParams.get('warehouse');
+        const name = urlParams.get('name');
+        document.getElementById('warehouse-name').textContent = "Current name: " + name;
+        this.dataStore.set('warehouse', warehouse);
+        document.getElementById('name').placeholder = name;
     }
 
     async submit(evt) {
         evt.preventDefault();
+        const warehouse = this.dataStore.get('warehouse');
+        const name = document.getElementById('name').value;
 
-        const updateButton = document.getElementById('update');
-
-        const warehouseName = document.getElementById('name').value;
+       await this.client.updateWarehouse(warehouse,name);
+        window.location.href = "/index.html";
 
     }
 
@@ -43,3 +45,5 @@ const main = async () => {
     const updateWarehouse = new UpdateWarehouse();
     updateWarehouse.mount();
 }
+
+window.addEventListener('DOMContentLoaded', main);

@@ -5,11 +5,11 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
 import com.nashss.se.popstock.dynamodb.models.Warehouse;
 import com.nashss.se.popstock.metrics.MetricsPublisher;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -57,4 +57,18 @@ public class WarehouseDaoTest {
         List<Warehouse> warehouses = warehouseDao.getWarehouses("userId");
         verify(dynamoDBMapper).query(any(), any());
     }
+
+    @Test
+    public void getWarehouse_withWarehouseId_callsMapper() {
+        String userId = "userId";
+        String warehouseId = "warehouseId";
+
+        when(dynamoDBMapper.load(Warehouse.class, userId, warehouseId)).thenReturn(new Warehouse());
+
+        Warehouse resultWarehouse = warehouseDao.getWarehouse(userId,warehouseId);
+
+        assertNotNull(resultWarehouse);
+        verify(dynamoDBMapper).load(Warehouse.class, userId, warehouseId);
+    }
+
 }

@@ -88,7 +88,7 @@ export default class PopStockClient extends BindingClass {
         }
     }
 
-    async createWarehouse(name,region, errorCallback){
+    async createWarehouse(name,region, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can create warehouses.");
             const response = await this.axiosClient.post(`warehouses`, {
@@ -105,15 +105,32 @@ export default class PopStockClient extends BindingClass {
         }
     }
 
-    async getWarehouses(){
+    async getWarehouses() {
         try {
-            const token = await this.getTokenOrThrow("Only authenticated users can get Goal summaries.");
+            const token = await this.getTokenOrThrow("Only authenticated users can get Warehouses.");
             const response = await this.axiosClient.get(`warehouses`, {
+                headers: {
+                   Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data.warehousesModel;
+        } catch (error) {
+            this.handleError(error)
+        }
+    }
+
+    async updateWarehouse(warehouse,name) {
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can udpate Warehouses.");
+            const response = await this.axiosClient.put(`warehouses`,  {
+                name:name,
+                warehouseId:warehouse,
+            }, {
                 headers: {
                    Authorization: `Bearer ${token}`
                 }}
                 );
-            return response.data.warehousesModel;
+            return response.data.warehouse;
         } catch (error) {
             this.handleError(error)
         }
