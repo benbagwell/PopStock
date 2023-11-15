@@ -405,7 +405,7 @@ Resources:
         PopStock:
           Type: Api
           Properties:
-            Path: /warehouses/{warehouse_id}
+            Path: /warehouses
             Method: put
 
   UpdateWarehouseInventoryLambda:

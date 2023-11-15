@@ -63,7 +63,7 @@ class GetWarehouses extends BindingClass {
             selectButton.textContent = 'Select';
             selectButton.className = 'button';
             selectButton.addEventListener('click', () => {
-                window.location.href = '/inventory.html?warehouse=' + warehouse.id
+                window.location.href = '/inventory.html?warehouse=' + warehouse.warehouseId;
             });
             selectButtonCell.appendChild(selectButton);
             row.appendChild(selectButtonCell);
@@ -73,7 +73,7 @@ class GetWarehouses extends BindingClass {
             updateButton.textContent = 'Update';
             updateButton.className = 'button';
             updateButton.addEventListener('click', () => {
-                window.location.href = '/updateWarehouse.html?warehouse=' + warehouse.id;
+                window.location.href = '/updateWarehouse.html?warehouse=' + warehouse.warehouseId + "&name=" + warehouse.name;
             });
             updateButtonCell.appendChild(updateButton);
             row.appendChild(updateButtonCell);

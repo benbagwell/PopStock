@@ -26,6 +26,11 @@ public class WarehouseDao {
         return warehouse;
     }
 
+    public Warehouse getWarehouse(String userId, String warehouseId) {
+
+       return this.dynamoDBMapper.load(Warehouse.class,userId,warehouseId);
+    }
+
     public List<Warehouse> getWarehouses(String userId) {
         Warehouse warehousePartition = new Warehouse();
         warehousePartition.setUserId(userId);
@@ -35,4 +40,5 @@ public class WarehouseDao {
 
         return this.dynamoDBMapper.query(Warehouse.class, dynamoDBQueryExpression);
     }
+
 }

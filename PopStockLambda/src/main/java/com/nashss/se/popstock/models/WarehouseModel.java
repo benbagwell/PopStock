@@ -5,18 +5,18 @@ import com.nashss.se.popstock.dynamodb.models.Item;
 import java.util.Objects;
 
 public class WarehouseModel {
-    private final String wareHouseId;
+    private final String warehouseId;
     private final String name;
     private final String region;
 
-    public WarehouseModel(String wareHouseId, String name, String region) {
-        this.wareHouseId = wareHouseId;
+    public WarehouseModel(String warehouseId, String name, String region) {
+        this.warehouseId = warehouseId;
         this.name = name;
         this.region = region;
     }
 
-    public String getWareHouseId() {
-        return wareHouseId;
+    public String getWarehouseId() {
+        return warehouseId;
     }
 
     public String getName() {
@@ -32,12 +32,12 @@ public class WarehouseModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         WarehouseModel that = (WarehouseModel) o;
-        return Objects.equals(wareHouseId, that.wareHouseId) && Objects.equals(name, that.name) && Objects.equals(region, that.region);
+        return Objects.equals(warehouseId, that.warehouseId) && Objects.equals(name, that.name) && Objects.equals(region, that.region);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(wareHouseId, name, region);
+        return Objects.hash(warehouseId, name, region);
     }
 
     public static Builder builder() {return new Builder();}
