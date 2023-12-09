@@ -41,4 +41,8 @@ public class WarehouseDao {
         return this.dynamoDBMapper.query(Warehouse.class, dynamoDBQueryExpression);
     }
 
+    public void deleteWarehouse(Warehouse warehouse) {
+        dynamoDBMapper.delete(warehouse);
+    }
+
 }
