@@ -26,18 +26,14 @@ public class CreateItemActivity {
     public CreateItemResult handleRequest(final CreateItemRequest createItemRequest){
         Item newItem = new Item();
 
+        newItem.setWarehouseId(createItemRequest.getWarehouseId());
         newItem.setItemId(UUID.randomUUID().toString());
         newItem.setCategory(createItemRequest.getCategory());
         newItem.setName(createItemRequest.getName());
-        newItem.setRegionOfOrigin(createItemRequest.getRegionOfOrigin());
-        newItem.setRegionalDemand(createItemRequest.getRegionalDemand());
         newItem.setSalesForecast(createItemRequest.getSalesForecast());
         newItem.setPerPallet(createItemRequest.getPerPallet());
         newItem.setWeight(createItemRequest.getWeight());
-        newItem.setPurchaseCost(createItemRequest.getPurchaseCost());
-        newItem.setBaseMargin(createItemRequest.getBaseMargin());
         newItem.setRateOfReplenishment(createItemRequest.getRateOfReplenishment());
-        newItem.setSynergy(createItemRequest.getSynergy());
         newItem.setActive(true);
 
         itemDao.saveItem(newItem);

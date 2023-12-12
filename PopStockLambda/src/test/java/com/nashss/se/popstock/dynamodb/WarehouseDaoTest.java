@@ -50,7 +50,7 @@ public class WarehouseDaoTest {
     }
 
     @Test
-    public void getWarehouses_verifiesMapperQuery() {
+    public void getWarehouses_callsMapperWithQuery() {
         DynamoDBQueryExpression<Warehouse> queryExpression = new DynamoDBQueryExpression<>();
         when(dynamoDBMapper.query(Warehouse.class, queryExpression)).thenReturn(queryList);
 

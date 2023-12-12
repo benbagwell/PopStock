@@ -2,8 +2,6 @@ package com.nashss.se.popstock.dynamodb.models;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 
-import java.util.Map;
-
 @DynamoDBTable(tableName = "warehouses")
 public class Warehouse {
 

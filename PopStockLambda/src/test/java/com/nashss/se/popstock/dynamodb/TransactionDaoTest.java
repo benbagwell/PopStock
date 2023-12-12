@@ -3,7 +3,7 @@ package com.nashss.se.popstock.dynamodb;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
-import com.nashss.se.popstock.dynamodb.models.Item;
+import com.nashss.se.popstock.dynamodb.models.Transaction;
 import com.nashss.se.popstock.metrics.MetricsPublisher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,8 +17,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
 
-public class ItemDaoTest {
-
+public class TransactionDaoTest {
     @Mock
     private DynamoDBMapper dynamoDBMapper;
 
@@ -26,44 +25,32 @@ public class ItemDaoTest {
     private MetricsPublisher metricsPublisher;
 
     @Mock
-    private PaginatedQueryList<Item> queryList;
+    private PaginatedQueryList<Transaction> queryList;
 
-    private ItemDao itemDao;
+    private TransactionDao transactionDao;
 
     @BeforeEach
     public void setup() {
         openMocks(this);
-        itemDao = new ItemDao(dynamoDBMapper,metricsPublisher);
+        transactionDao = new TransactionDao(dynamoDBMapper,metricsPublisher);
     }
 
     @Test
-    public void saveItem_callsMapperWithItem() {
-        // GIVEN
-        Item item = new Item();
+    public void saveTransaction_callsMapperWithTransaction() {
+        Transaction transaction = new Transaction();
 
-        // WHEN
-        Item result = itemDao.saveItem(item);
+        Transaction result = transactionDao.saveTransaction(transaction);
 
-        // THEN
-        verify(dynamoDBMapper).save(item);
-        assertEquals(item, result);
+        verify(dynamoDBMapper).save(transaction);
+        assertEquals(transaction,result);
     }
 
     @Test
-    public void deleteItem_callsMapperWithItem() {
-        Item item = new Item();
+    public void getTransactions_callsMapperWithQuery() {
+        DynamoDBQueryExpression<Transaction> queryExpression = new DynamoDBQueryExpression<>();
+        when(dynamoDBMapper.query(Transaction.class, queryExpression)).thenReturn(queryList);
 
-        itemDao.deleteItem(item);
-
-        verify(dynamoDBMapper).delete(item);
-    }
-
-    @Test
-    public void getItems_verifiesMapperQuery() {
-        DynamoDBQueryExpression<Item> queryExpression = new DynamoDBQueryExpression<>();
-        when(dynamoDBMapper.query(Item.class, queryExpression)).thenReturn(queryList);
-
-        List<Item> items = itemDao.getItems("warehouseId");
+        List<Transaction> transactions = transactionDao.getTransactions("warehouseId");
         verify(dynamoDBMapper).query(any(), any());
     }
 }

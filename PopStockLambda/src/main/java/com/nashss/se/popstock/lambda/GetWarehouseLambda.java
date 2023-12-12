@@ -9,7 +9,6 @@ public class GetWarehouseLambda
         extends LambdaActivityRunner<GetWarehouseRequest, GetWarehouseResult>
         implements RequestHandler<AuthenticatedLambdaRequest<GetWarehouseRequest>, LambdaResponse> {
 
-
     @Override
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<GetWarehouseRequest> input, Context context) {
         return super.runActivity(

@@ -74,8 +74,8 @@ String name
 
 ```
 //TransactionModel
-transactionId
 String warehouseId
+transactionId
 String shipmentId
 String itemId
 int count
@@ -86,10 +86,11 @@ String transactionType
 
 ```
 //InventoryItemModel
-String itemId
 String warehouseId
+String itemId
 String name
 String category
+int count
 ```
 
 ## 5.2. Create Inventory Item Endpoint

@@ -1,11 +1,15 @@
 package com.nashss.se.popstock.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.nashss.se.popstock.dynamodb.models.Item;
+import com.nashss.se.popstock.dynamodb.models.Transaction;
+import com.nashss.se.popstock.dynamodb.models.Warehouse;
 import com.nashss.se.popstock.metrics.MetricsPublisher;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.List;
 
 @Singleton
 public class ItemDao {
@@ -22,5 +26,19 @@ public class ItemDao {
     public Item saveItem(Item item) {
         this.dynamoDBMapper.save(item);
         return item;
+    }
+
+    public void deleteItem(Item item) {
+        this.dynamoDBMapper.delete(item);
+    }
+
+    public List<Item> getItems(String warehouseId) {
+        Item itemPartition = new Item();
+        itemPartition.setWarehouseId(warehouseId);
+
+        DynamoDBQueryExpression<Item> dynamoDBQueryExpression = new DynamoDBQueryExpression<Item>()
+                .withHashKeyValues(itemPartition);
+
+        return this.dynamoDBMapper.query(Item.class, dynamoDBQueryExpression);
     }
 }
