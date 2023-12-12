@@ -23,7 +23,7 @@ public class ItemModel {
         this.rateOfReplenishment = rateOfReplenishment;
         this.active = active;
     }
-    public String getWarehouseId() {return warehouseId;}
+    public String getWarehouseId() { return warehouseId; }
     public String getItemId() {
         return itemId;
     }
@@ -57,7 +57,7 @@ public class ItemModel {
         return active;
     }
 
-    public static Builder builder() {return new Builder();}
+    public static Builder builder() { return new Builder(); }
 
     public static class Builder {
 
@@ -116,7 +116,8 @@ public class ItemModel {
             return this;
         }
 
-        public ItemModel build() {return new ItemModel(warehouseId,itemId,category,name,salesForecast,perPallet,weight,rateOfReplenishment,active);}
+        public ItemModel build() { return new ItemModel(warehouseId, itemId, category, name, salesForecast,
+                perPallet, weight, rateOfReplenishment, active); }
     }
 }
 

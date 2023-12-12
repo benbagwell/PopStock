@@ -1,8 +1,6 @@
 package com.nashss.se.popstock.activity.results;
 
-import com.nashss.se.popstock.activity.requests.GetWarehouseRequest;
 import com.nashss.se.popstock.models.WarehouseModel;
-import com.nashss.se.popstock.models.WarehousesModel;
 
 public class GetWarehouseResult {
 
@@ -33,6 +31,6 @@ public class GetWarehouseResult {
             return this;
         }
 
-        public GetWarehouseResult build() {return new GetWarehouseResult(warehouse);}
+        public GetWarehouseResult build() { return new GetWarehouseResult(warehouse); }
     }
 }

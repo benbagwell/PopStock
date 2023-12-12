@@ -1,5 +1,7 @@
 package com.nashss.se.popstock.activity.requests;
 
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
 public class DeleteWarehouseRequest {
     private final String userId;
 
@@ -26,8 +28,11 @@ public class DeleteWarehouseRequest {
                 '}';
     }
 
-    public static Builder builder() {return new Builder();}
+    public static Builder builder() {
+        return new Builder();
+    }
 
+    @JsonPOJOBuilder
     public static class Builder {
         private String userId;
         private String warehouseId;
@@ -42,6 +47,6 @@ public class DeleteWarehouseRequest {
             return this;
         }
 
-        public DeleteWarehouseRequest build() {return new DeleteWarehouseRequest(userId,warehouseId);}
+        public DeleteWarehouseRequest build() { return new DeleteWarehouseRequest(userId, warehouseId); }
     }
 }

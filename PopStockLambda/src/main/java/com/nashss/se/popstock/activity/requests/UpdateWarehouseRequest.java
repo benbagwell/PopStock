@@ -39,7 +39,7 @@ public class UpdateWarehouseRequest {
                 '}';
     }
 
-    public static Builder builder() {return new Builder();}
+    public static Builder builder() { return new Builder(); }
 
     @JsonPOJOBuilder
     public static class Builder {
@@ -62,6 +62,6 @@ public class UpdateWarehouseRequest {
             return this;
         }
 
-        public UpdateWarehouseRequest build() {return new UpdateWarehouseRequest(userId,warehouseId,name);}
+        public UpdateWarehouseRequest build() { return new UpdateWarehouseRequest(userId, warehouseId, name); }
     }
 }

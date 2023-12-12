@@ -1,12 +1,11 @@
 package com.nashss.se.popstock.activity;
 
-import com.nashss.se.popstock.activity.requests.GetWarehouseRequest;
 import com.nashss.se.popstock.activity.requests.UpdateWarehouseRequest;
-import com.nashss.se.popstock.activity.results.GetWarehouseResult;
 import com.nashss.se.popstock.activity.results.UpdateWarehouseResult;
 import com.nashss.se.popstock.converters.ModelConverter;
 import com.nashss.se.popstock.dynamodb.WarehouseDao;
 import com.nashss.se.popstock.dynamodb.models.Warehouse;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,9 +24,10 @@ public class UpdateWarehouseActivity {
 
     public UpdateWarehouseResult handleRequest(final UpdateWarehouseRequest updateWarehouseRequest) {
 
-       Warehouse warehouse = warehouseDao.getWarehouse(updateWarehouseRequest.getUserId(), updateWarehouseRequest.getWarehouseId());
-       warehouse.setName(updateWarehouseRequest.getName());
-       warehouseDao.saveWarehouse(warehouse);
+        Warehouse warehouse = warehouseDao.getWarehouse(updateWarehouseRequest.getUserId(),
+                updateWarehouseRequest.getWarehouseId());
+        warehouse.setName(updateWarehouseRequest.getName());
+        warehouseDao.saveWarehouse(warehouse);
 
         ModelConverter modelConverter = new ModelConverter();
 

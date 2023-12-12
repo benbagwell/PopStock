@@ -22,9 +22,9 @@ public class CreateItemLambda
                                 .withWeight(unauthenticatedRequest.getWeight())
                                 .withRateOfReplenishment(unauthenticatedRequest.getRateOfReplenishment())
                                 .build());
-                },
-                (request, serviceComponent) ->
-                        serviceComponent.provideCreateItemActivity().handleRequest(request)
+            },
+            (request, serviceComponent) ->
+                    serviceComponent.provideCreateItemActivity().handleRequest(request)
         );
     }
 }

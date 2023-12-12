@@ -21,7 +21,7 @@ public class UpdateWarehouseResult {
                 '}';
     }
 
-    public static Builder builder() {return new Builder();}
+    public static Builder builder() { return new Builder(); }
 
     public static class Builder {
         private WarehouseModel warehouse;
@@ -31,6 +31,6 @@ public class UpdateWarehouseResult {
             return this;
         }
 
-        public UpdateWarehouseResult build() {return new UpdateWarehouseResult(warehouse);}
+        public UpdateWarehouseResult build() { return new UpdateWarehouseResult(warehouse); }
     }
 }

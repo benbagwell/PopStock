@@ -21,7 +21,7 @@ public class CreateItemResult {
                 '}';
     }
 
-    public static Builder builder() {return new Builder();}
+    public static Builder builder() { return new Builder(); }
 
     public static class Builder {
         private ItemModel item;
@@ -31,6 +31,6 @@ public class CreateItemResult {
             return this;
         }
 
-        public CreateItemResult build(){return new CreateItemResult(item);}
+        public CreateItemResult build() { return new CreateItemResult(item); }
     }
 }
