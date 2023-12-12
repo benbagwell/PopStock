@@ -7,24 +7,25 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 @DynamoDBTable(tableName = "items")
 public class Item {
+    private String warehouseId;
     private String itemId;
     private String category;
     private String name;
-    private String regionOfOrigin;
-    private int regionalDemand;
     private double salesForecast;
     private double perPallet;
     private double weight;
-    private double purchaseCost;
-    private double baseMargin;
     private double rateOfReplenishment;
-    private String synergy;
     private boolean active;
 
     public Item() {
     }
 
-    @DynamoDBHashKey(attributeName = "item_id")
+    @DynamoDBHashKey(attributeName = "warehouseId")
+    public String getWarehouseId() { return warehouseId; }
+
+    public void setWarehouseId(String warehouseId) { this.warehouseId = warehouseId; }
+
+    @DynamoDBRangeKey(attributeName = "item_id")
     public String getItemId() {
         return itemId;
     }
@@ -33,7 +34,7 @@ public class Item {
         this.itemId = itemId;
     }
 
-    @DynamoDBRangeKey(attributeName = "category")
+    @DynamoDBAttribute(attributeName = "category")
     public String getCategory() {
         return category;
     }
@@ -49,24 +50,6 @@ public class Item {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @DynamoDBAttribute(attributeName = "region_of_origin")
-    public String getRegionOfOrigin() {
-        return regionOfOrigin;
-    }
-
-    public void setRegionOfOrigin(String regionOfOrigin) {
-        this.regionOfOrigin = regionOfOrigin;
-    }
-
-    @DynamoDBAttribute(attributeName = "regional_demand")
-    public int getRegionalDemand() {
-        return regionalDemand;
-    }
-
-    public void setRegionalDemand(int regionalDemand) {
-        this.regionalDemand = regionalDemand;
     }
 
     @DynamoDBAttribute(attributeName = "sales_forecast")
@@ -96,24 +79,6 @@ public class Item {
         this.weight = weight;
     }
 
-    @DynamoDBAttribute(attributeName = "purchase_cost")
-    public double getPurchaseCost() {
-        return purchaseCost;
-    }
-
-    public void setPurchaseCost(double purchaseCost) {
-        this.purchaseCost = purchaseCost;
-    }
-
-    @DynamoDBAttribute(attributeName = "base_margin")
-    public double getBaseMargin() {
-        return baseMargin;
-    }
-
-    public void setBaseMargin(double baseMargin) {
-        this.baseMargin = baseMargin;
-    }
-
     @DynamoDBAttribute(attributeName = "rate_of_replenishment")
     public double getRateOfReplenishment() {
         return rateOfReplenishment;
@@ -121,15 +86,6 @@ public class Item {
 
     public void setRateOfReplenishment(double rateOfReplenishment) {
         this.rateOfReplenishment = rateOfReplenishment;
-    }
-
-    @DynamoDBAttribute(attributeName = "synergy")
-    public String getSynergy() {
-        return synergy;
-    }
-
-    public void setSynergy(String synergy) {
-        this.synergy = synergy;
     }
 
     @DynamoDBAttribute(attributeName = "active")

@@ -22,6 +22,11 @@ public class TransactionDao {
         this.metricsPublisher = metricsPublisher;
     }
 
+    public Transaction saveTransaction(Transaction transaction) {
+        dynamoDBMapper.save(transaction);
+        return transaction;
+    }
+
     public void deleteTransaction(Transaction transaction) {
         dynamoDBMapper.delete(transaction);
     }

@@ -12,15 +12,10 @@ public class ModelConverter {
                 .withItemId(item.getItemId())
                 .withCategory(item.getCategory())
                 .withName(item.getName())
-                .withRegionOfOrigin(item.getRegionOfOrigin())
-                .withRegionalDemand(item.getRegionalDemand())
                 .withSalesForecast(item.getSalesForecast())
                 .withPerPallet(item.getPerPallet())
                 .withWeight(item.getWeight())
-                .withPurchaseCost(item.getPurchaseCost())
-                .withBaseMargin(item.getBaseMargin())
                 .withRateOfReplenishment(item.getRateOfReplenishment())
-                .withSynergy(item.getSynergy()).withActive(item.isActive())
                 .build();
     }
 

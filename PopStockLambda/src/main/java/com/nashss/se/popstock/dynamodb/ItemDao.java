@@ -1,7 +1,9 @@
 package com.nashss.se.popstock.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.nashss.se.popstock.dynamodb.models.Item;
+import com.nashss.se.popstock.dynamodb.models.Transaction;
 import com.nashss.se.popstock.dynamodb.models.Warehouse;
 import com.nashss.se.popstock.metrics.MetricsPublisher;
 
@@ -30,7 +32,13 @@ public class ItemDao {
         this.dynamoDBMapper.delete(item);
     }
 
-    public List<Item> getItems(String warehouseID) {
+    public List<Item> getItems(String warehouseId) {
+        Item itemPartition = new Item();
+        itemPartition.setWarehouseId(warehouseId);
 
+        DynamoDBQueryExpression<Item> dynamoDBQueryExpression = new DynamoDBQueryExpression<Item>()
+                .withHashKeyValues(itemPartition);
+
+        return this.dynamoDBMapper.query(Item.class, dynamoDBQueryExpression);
     }
 }

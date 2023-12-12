@@ -23,4 +23,6 @@ public interface ServiceComponent {
 
     UpdateWarehouseActivity provideUpdateWarehouseActivity();
 
+    DeleteWarehouseActivity provideDeleteWarehouseActivity();
+
 }

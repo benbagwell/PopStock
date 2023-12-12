@@ -83,7 +83,7 @@ class GetWarehouses extends BindingClass {
             deleteButton.textContent = 'Delete';
             deleteButton.className = 'button';
             deleteButton.addEventListener('click', async () => {
-                let deleteYN = confirm("Are you sure? This will also delete the warehouse's inventory.");
+                let deleteYN = confirm("Are you sure? This will also delete the warehouse's inventory and transactions.");
                 if (deleteYN === true) {
                     await this.client.deleteWarehouse(warehouse.id);
                     this.loadWarehouses();

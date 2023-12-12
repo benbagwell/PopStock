@@ -17,15 +17,10 @@ public class CreateItemLambda
                         CreateItemRequest.builder()
                                 .withName(unauthenticatedRequest.getName())
                                 .withCategory(unauthenticatedRequest.getCategory())
-                                .withRegionOfOrigin(unauthenticatedRequest.getRegionOfOrigin())
-                                .withRegionalDemand(unauthenticatedRequest.getRegionalDemand())
                                 .withSalesForecast(unauthenticatedRequest.getSalesForecast())
                                 .withPerPallet(unauthenticatedRequest.getPerPallet())
                                 .withWeight(unauthenticatedRequest.getWeight())
-                                .withPurchaseCost(unauthenticatedRequest.getPurchaseCost())
-                                .withBaseMargin(unauthenticatedRequest.getBaseMargin())
                                 .withRateOfReplenishment(unauthenticatedRequest.getRateOfReplenishment())
-                                .withSynergy(unauthenticatedRequest.getSynergy())
                                 .build());
                 },
                 (request, serviceComponent) ->
