@@ -15,6 +15,7 @@ public class CreateItemLambda
                 CreateItemRequest unauthenticatedRequest = input.fromBody(CreateItemRequest.class);
                 return input.fromUserClaims(claims ->
                         CreateItemRequest.builder()
+                                .withWarehouseId(unauthenticatedRequest.getWarehouseId())
                                 .withName(unauthenticatedRequest.getName())
                                 .withCategory(unauthenticatedRequest.getCategory())
                                 .withSalesForecast(unauthenticatedRequest.getSalesForecast())
@@ -22,9 +23,9 @@ public class CreateItemLambda
                                 .withWeight(unauthenticatedRequest.getWeight())
                                 .withRateOfReplenishment(unauthenticatedRequest.getRateOfReplenishment())
                                 .build());
-                },
-                (request, serviceComponent) ->
-                        serviceComponent.provideCreateItemActivity().handleRequest(request)
+            },
+            (request, serviceComponent) ->
+                    serviceComponent.provideCreateItemActivity().handleRequest(request)
         );
     }
 }

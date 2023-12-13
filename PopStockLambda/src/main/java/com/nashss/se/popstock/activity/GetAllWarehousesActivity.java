@@ -6,12 +6,13 @@ import com.nashss.se.popstock.converters.ModelConverter;
 import com.nashss.se.popstock.dynamodb.WarehouseDao;
 import com.nashss.se.popstock.dynamodb.models.Warehouse;
 import com.nashss.se.popstock.models.WarehousesModel;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.inject.Inject;
 
 public class GetAllWarehousesActivity {
 

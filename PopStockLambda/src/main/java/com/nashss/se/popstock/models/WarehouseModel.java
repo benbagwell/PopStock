@@ -1,7 +1,5 @@
 package com.nashss.se.popstock.models;
 
-import com.nashss.se.popstock.dynamodb.models.Item;
-
 import java.util.Objects;
 
 public class WarehouseModel {
@@ -32,7 +30,8 @@ public class WarehouseModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         WarehouseModel that = (WarehouseModel) o;
-        return Objects.equals(warehouseId, that.warehouseId) && Objects.equals(name, that.name) && Objects.equals(region, that.region);
+        return Objects.equals(warehouseId, that.warehouseId) && Objects.equals(name, that.name)
+                && Objects.equals(region, that.region);
     }
 
     @Override
@@ -40,7 +39,7 @@ public class WarehouseModel {
         return Objects.hash(warehouseId, name, region);
     }
 
-    public static Builder builder() {return new Builder();}
+    public static Builder builder() { return new Builder(); }
 
     public static class Builder {
         private String warehouseId;
@@ -62,6 +61,6 @@ public class WarehouseModel {
             return this;
         }
 
-        public WarehouseModel build() {return new WarehouseModel(warehouseId,name,region);}
+        public WarehouseModel build() { return new WarehouseModel(warehouseId, name, region); }
     }
 }

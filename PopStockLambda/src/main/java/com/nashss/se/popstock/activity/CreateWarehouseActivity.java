@@ -6,12 +6,13 @@ import com.nashss.se.popstock.converters.ModelConverter;
 import com.nashss.se.popstock.dynamodb.WarehouseDao;
 import com.nashss.se.popstock.dynamodb.models.Warehouse;
 import com.nashss.se.popstock.models.WarehouseModel;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.inject.Inject;
-import java.util.HashMap;
 import java.util.UUID;
+import javax.inject.Inject;
+
 
 public class CreateWarehouseActivity {
 

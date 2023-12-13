@@ -3,13 +3,14 @@ package com.nashss.se.popstock.dynamodb;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.nashss.se.popstock.dynamodb.models.Item;
-import com.nashss.se.popstock.dynamodb.models.Transaction;
-import com.nashss.se.popstock.dynamodb.models.Warehouse;
+
 import com.nashss.se.popstock.metrics.MetricsPublisher;
+
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.List;
+
 
 @Singleton
 public class ItemDao {

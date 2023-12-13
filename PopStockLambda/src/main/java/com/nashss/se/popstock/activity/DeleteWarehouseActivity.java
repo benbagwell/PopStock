@@ -9,12 +9,12 @@ import com.nashss.se.popstock.dynamodb.WarehouseDao;
 import com.nashss.se.popstock.dynamodb.models.Item;
 import com.nashss.se.popstock.dynamodb.models.Transaction;
 import com.nashss.se.popstock.dynamodb.models.Warehouse;
-import com.nashss.se.popstock.models.WarehouseModel;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.inject.Inject;
 import java.util.List;
+import javax.inject.Inject;
 
 public class DeleteWarehouseActivity {
 
@@ -31,9 +31,10 @@ public class DeleteWarehouseActivity {
         this.transactionDao = transactionDao;
     }
 
-    public DeleteWarehouseResult handleRequest(final DeleteWarehouseRequest deleteWarehouseRequest){
+    public DeleteWarehouseResult handleRequest(final DeleteWarehouseRequest deleteWarehouseRequest) {
 
-        Warehouse warehouse = warehouseDao.getWarehouse(deleteWarehouseRequest.getUserId(), deleteWarehouseRequest.getUserId());
+        Warehouse warehouse = warehouseDao.getWarehouse(deleteWarehouseRequest.getUserId(),
+                deleteWarehouseRequest.getUserId());
         List<Item> items = itemDao.getItems(warehouse.getWarehouseId());
         List<Transaction> transactions = transactionDao.getTransactions(warehouse.getWarehouseId());
 

@@ -20,7 +20,7 @@ public class Item {
     public Item() {
     }
 
-    @DynamoDBHashKey(attributeName = "warehouseId")
+    @DynamoDBHashKey(attributeName = "warehouse_id")
     public String getWarehouseId() { return warehouseId; }
 
     public void setWarehouseId(String warehouseId) { this.warehouseId = warehouseId; }

@@ -245,7 +245,7 @@ Resources:
         PopStock:
           Type: Api
           Properties:
-            Path: /items
+            Path: /warehouses/{warehouseId}/inventory
             Method: post
 
   GetAllItemsLambda:
@@ -265,15 +265,15 @@ Resources:
         PopStock:
           Type: Api
           Properties:
-            Path: /items
+            Path: /warehouses/{warehouseId}/inventory
             Method: get
 
-  UpdateItemLambda:
+  DeleteItemsLambda:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: PopStockLambda
-      Handler: com.nashss.se.popstock.lambda.UpdateItemLambda::handleRequest
+      Handler: com.nashss.se.popstock.lambda.DeleteItemsLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
@@ -285,8 +285,8 @@ Resources:
         PopStock:
           Type: Api
           Properties:
-            Path: /items/{item_id}
-            Method: put
+            Path: /warehouses/{warehouseId}/{items}
+            Method: delete
 
   CreateWarehouseLambda:
     Type: AWS::Serverless::Function
@@ -325,7 +325,7 @@ Resources:
         PopStock:
           Type: Api
           Properties:
-            Path: /warehouses/{warehouse_id}
+            Path: /warehouses/{warehouseId}
             Method: get
 
   GetAllWarehousesLambda:
@@ -365,7 +365,7 @@ Resources:
         PopStock:
           Type: Api
           Properties:
-            Path: /warehouses/{warehouse_id}
+            Path: /warehouses/{warehouseId}
             Method: delete
 
   UpdateWarehouseLambda:
@@ -388,12 +388,12 @@ Resources:
             Path: /warehouses
             Method: put
 
-  UpdateWarehouseInventoryLambda:
+  CreateTransactionLambda:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: PopStockLambda
-      Handler: com.nashss.se.popstock.lambda.UpdateWarehouseInventoryLambda::handleRequest
+      Handler: com.nashss.se.popstock.lambda.CreateTransactionLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
@@ -405,8 +405,8 @@ Resources:
         PopStock:
           Type: Api
           Properties:
-            Path: /warehouses/inventory/{warehouse_id}
-            Method: put
+            Path: /warehouses/{warehouseId}/transactions
+            Method: post
 
   #-----------------------------------------------------
   # DynamoDB Configuration
@@ -415,8 +415,8 @@ Resources:
   ItemsTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      AttributeDefinitions: "warehouse_id"
-        - AttributeName: "item_id"
+      AttributeDefinitions: 
+        - AttributeName: "warehouse_id"
           AttributeType: "S"
         - AttributeName: "item_id"
           AttributeType: "S"

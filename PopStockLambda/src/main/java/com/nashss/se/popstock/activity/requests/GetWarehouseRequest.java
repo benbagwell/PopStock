@@ -1,5 +1,7 @@
 package com.nashss.se.popstock.activity.requests;
 
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
 public class GetWarehouseRequest {
     private final String userId;
 
@@ -26,8 +28,9 @@ public class GetWarehouseRequest {
                 '}';
     }
 
-    public static Builder builder() {return new Builder();}
+    public static Builder builder() { return new Builder(); }
 
+    @JsonPOJOBuilder
     public static class Builder {
         private String userId;
         private String warehouseId;
@@ -42,6 +45,6 @@ public class GetWarehouseRequest {
             return this;
         }
 
-        public GetWarehouseRequest build() {return new GetWarehouseRequest(userId,warehouseId);}
+        public GetWarehouseRequest build() { return new GetWarehouseRequest(userId, warehouseId); }
     }
 }

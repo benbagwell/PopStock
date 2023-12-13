@@ -27,6 +27,6 @@ public class GetAllWarehousesResult {
             return this;
         }
 
-        public GetAllWarehousesResult build() {return new GetAllWarehousesResult(warehousesModel);}
+        public GetAllWarehousesResult build() { return new GetAllWarehousesResult(warehousesModel); }
     }
 }

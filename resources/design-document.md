@@ -93,18 +93,18 @@ String category
 int count
 ```
 
-## 5.2. Create Inventory Item Endpoint
+## 5.2. Create Item Endpoint
 * Accepts POST requests to /warehouses/:warehouseId/inventory
 * Accepts input data and user info to create a new item and returns an itemModel for the logged-in user
 ![](CreateItemSequenceDiagram.png)
 
-## 5.3 Get All Inventory Items Endpoint
+## 5.3 Get Items Endpoint
 * Accepts Get requests to /warehouses/:warehouseId/inventory
 * Accepts a warehouseId and user info and returns a lit of all inventoryItems for the warehouse
   *if the warehouseId is not found, will throw 'WarehouseNotFoundException'
 
-## 5.4 Remove Inventory Items Endpoint
-* Accepts Delete requests to /warehouses/:warehouseId/:inventoryItemId
+## 5.4 Delete Items Endpoint
+* Accepts Delete requests to /warehouses/:warehouseId/:itemId
 * Accepts a warehouseId, a list of inventoryItemIds, and user info, and deletes the inventory items from the inventory_items table
 * Returns a json the warehouse ID, name, and list containing the current warehouse inventory of itemModels
   * if the warehouseId is not found, will throw 'WarehouseNotFoundException'
@@ -143,13 +143,13 @@ int count
   * if the inventoryItemId is not found, will throw 'inventoryItemNotFoundException'
 
 ## 6.11 Get Shipping Report
-* Accepts GET requests to warehouses/:warehouseId/{dateRange}
+* Accepts GET requests to /warehouses/:warehouseId/transactions?date=
 * Accepts a warehouseID
 * Returns a json formatted report of transactions
   * if the warehouseId is not found, will throw 'WarehouseNotFoundException'
 
 ## 6.12 Get Shipping Report PDF
-* Accepts GET requests to warehouses/:warehouseId/{dateRange}/pdf
+* Accepts GET requests to /warehouses/:warehouseId/pdf/transactions?date=/
 * Accepts a warehouseID
 * Creates a request to a third-party API service and generates a pdf to be downloaded by the user's browser
   * if the warehouseId is not found, will throw 'WarehouseNotFoundException'

@@ -47,7 +47,7 @@ public class CreateWarehouseRequest {
         private String name;
         private String region;
 
-        public Builder withUserId(String userId){
+        public Builder withUserId(String userId) {
             this.userId = userId;
             return this;
         }
@@ -62,6 +62,6 @@ public class CreateWarehouseRequest {
             return this;
         }
 
-        public CreateWarehouseRequest build() {return new CreateWarehouseRequest(userId,name,region);}
+        public CreateWarehouseRequest build() { return new CreateWarehouseRequest(userId, name, region); }
     }
 }

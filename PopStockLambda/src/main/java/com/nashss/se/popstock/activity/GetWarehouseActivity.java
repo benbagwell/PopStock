@@ -5,7 +5,7 @@ import com.nashss.se.popstock.activity.results.GetWarehouseResult;
 import com.nashss.se.popstock.converters.ModelConverter;
 import com.nashss.se.popstock.dynamodb.WarehouseDao;
 import com.nashss.se.popstock.dynamodb.models.Warehouse;
-import com.nashss.se.popstock.models.WarehouseModel;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,7 +24,8 @@ public class GetWarehouseActivity {
 
     public GetWarehouseResult handleRequest(final GetWarehouseRequest getWarehouseRequest) {
 
-        Warehouse warehouse = warehouseDao.getWarehouse(getWarehouseRequest.getUserId(), getWarehouseRequest.getWarehouseId());
+        Warehouse warehouse = warehouseDao.getWarehouse(getWarehouseRequest.getUserId(),
+                getWarehouseRequest.getWarehouseId());
 
         return GetWarehouseResult.builder()
                 .withWarehouse(new ModelConverter().toWarehouseModel(warehouse))

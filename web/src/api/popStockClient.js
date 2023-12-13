@@ -65,7 +65,8 @@ export default class PopStockClient extends BindingClass {
     async createItem(category,name,salesForecast,perPallet,weight,rateOfReplenishment, errorCallback){
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can create Items.");
-            const response = await this.axiosClient.post(`items`, {
+            const response = await this.axiosClient.post(`warehouses/${warehouseId}/inventory`, {
+                warehouse:warehouse,
                 category:category,
                 name:name,
                 salesForecast:salesForecast,

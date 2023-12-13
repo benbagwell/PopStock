@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ModelConverterTest {
 
-    private ModelConverter modelConverter = new ModelConverter();
+    private final ModelConverter modelConverter = new ModelConverter();
 
     @Test
     public void toItemModel_convertsItem(){

@@ -20,7 +20,7 @@ public class DeleteWarehouseResult {
                 '}';
     }
 
-    public static Builder builder() {return new Builder();}
+    public static Builder builder() { return new Builder(); }
 
     public static class Builder {
         private WarehouseModel warehouse;
@@ -30,7 +30,7 @@ public class DeleteWarehouseResult {
             return this;
         }
 
-        public DeleteWarehouseResult build() {return new DeleteWarehouseResult(warehouse);}
+        public DeleteWarehouseResult build() { return new DeleteWarehouseResult(warehouse); }
     }
 }
 

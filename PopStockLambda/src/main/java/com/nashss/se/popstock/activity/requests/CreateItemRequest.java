@@ -107,6 +107,9 @@ public class CreateItemRequest {
             return this;
         }
 
-        public CreateItemRequest build() {return new CreateItemRequest(warehouseId,category,name,salesForecast,perPallet,weight,rateOfReplenishment);}
+        public CreateItemRequest build() {
+            return new CreateItemRequest(warehouseId, category, name, salesForecast,
+                    perPallet, weight, rateOfReplenishment);
+        }
     }
 }

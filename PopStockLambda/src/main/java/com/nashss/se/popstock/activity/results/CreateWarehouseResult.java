@@ -1,6 +1,5 @@
 package com.nashss.se.popstock.activity.results;
 
-
 import com.nashss.se.popstock.models.WarehouseModel;
 
 public class CreateWarehouseResult {
@@ -22,7 +21,7 @@ public class CreateWarehouseResult {
                 '}';
     }
 
-    public static CreateWarehouseResult.Builder builder() {return new CreateWarehouseResult.Builder();}
+    public static CreateWarehouseResult.Builder builder() { return new CreateWarehouseResult.Builder(); }
 
     public static class Builder {
         private WarehouseModel warehouse;
@@ -32,6 +31,6 @@ public class CreateWarehouseResult {
             return this;
         }
 
-        public CreateWarehouseResult build(){return new CreateWarehouseResult(warehouse);}
+        public CreateWarehouseResult build() { return new CreateWarehouseResult(warehouse); }
     }
 }
