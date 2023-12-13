@@ -9,6 +9,7 @@ public class ModelConverter {
 
     public ItemModel toItemModel(Item item) {
         return ItemModel.builder()
+                .withWarehouseId(item.getWarehouseId())
                 .withItemId(item.getItemId())
                 .withCategory(item.getCategory())
                 .withName(item.getName())

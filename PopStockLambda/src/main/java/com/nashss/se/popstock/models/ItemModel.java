@@ -1,5 +1,7 @@
 package com.nashss.se.popstock.models;
 
+import java.util.Objects;
+
 public class ItemModel {
     private final String warehouseId;
     private final String itemId;
@@ -52,6 +54,20 @@ public class ItemModel {
         return rateOfReplenishment;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ItemModel itemModel = (ItemModel) o;
+        return Double.compare(itemModel.salesForecast, salesForecast) == 0 && Double.compare(itemModel.perPallet, perPallet) == 0 && Double.compare(itemModel.weight, weight) == 0
+                && Double.compare(itemModel.rateOfReplenishment, rateOfReplenishment) == 0 && active == itemModel.active && Objects.equals(warehouseId, itemModel.warehouseId)
+                && Objects.equals(itemId, itemModel.itemId) && Objects.equals(name, itemModel.name) && Objects.equals(category, itemModel.category);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(warehouseId, itemId, name, salesForecast, perPallet, weight, rateOfReplenishment, category, active);
+    }
 
     public boolean isActive() {
         return active;
