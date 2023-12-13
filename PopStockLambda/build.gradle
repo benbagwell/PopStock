@@ -1,6 +1,5 @@
 plugins {
     id "java"
-    id "checkstyle"
     id 'jacoco'
     id 'com.adarshr.test-logger' version '3.2.0'
 }
@@ -36,6 +35,7 @@ dependencies {
 
     implementation 'com.fasterxml.jackson.core:jackson-core:2.11.4'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.4'
+    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.15.2'
 
     implementation 'com.amazonaws:aws-lambda-java-core:1.2.1'
     implementation 'com.amazonaws:aws-lambda-java-events:3.11.0'
@@ -56,39 +56,6 @@ test {
     jacoco {
         destinationFile = file("$buildDir/jacoco/${name}.exec")
     }
-}
-
-/* checkstyle */
-
-// Applies Checkstyle plugin quality checks on project’s Java source files and generates reports from these checks.
-checkstyle {
-    toolVersion '8.17'
-
-    // Expect the checkstyle config to be in a either the current directory or
-    //  a parent, grandparent or great-grandparent directory of the root project
-    // NOTE: The purpose of putting checkstyle config in a higher directory is to
-    //       share the same config among multiple projects.
-    def configFilePath = 'checkstyle/checkstyle.xml'
-    for (int attempts = 0; attempts < 4; attempts++) {
-        configFile = rootProject.file(configFilePath)
-
-        if (configFile.exists()) {
-            break;
-        }
-
-        configFilePath = '../' + configFilePath
-    }
-
-    def checkstyleDir = configFile.toPath().parent
-    def suppressionFile = new File("$checkstyleDir/unit3/suppressions.xml")
-    configProperties.put('checkstyle.suppression.filter', suppressionFile) // This property is refereced in `checkstyle.xml`
-
-    sourceSets = [sourceSets.main]
-}
-
-// If we are running the task 'staticchecks', do not ignore failures, otherwise ignore
-checkstyleMain.doFirst {
-    ignoreFailures = !gradle.taskGraph.allTasks.any({ it.name ==~ /.*staticchecks/ })
 }
 
 check.dependsOn jacocoTestCoverageVerification

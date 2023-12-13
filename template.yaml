@@ -385,7 +385,7 @@ Resources:
         PopStock:
           Type: Api
           Properties:
-            Path: /warehouses/
+            Path: /warehouses
             Method: put
 
   CreateTransactionLambda:
@@ -405,7 +405,7 @@ Resources:
         PopStock:
           Type: Api
           Properties:
-            Path: /warehouses/{warehouseId}/inventory
+            Path: /warehouses/{warehouseId}/transactions
             Method: post
 
   #-----------------------------------------------------

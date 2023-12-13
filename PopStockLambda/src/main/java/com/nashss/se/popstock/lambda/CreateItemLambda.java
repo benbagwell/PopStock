@@ -15,6 +15,7 @@ public class CreateItemLambda
                 CreateItemRequest unauthenticatedRequest = input.fromBody(CreateItemRequest.class);
                 return input.fromUserClaims(claims ->
                         CreateItemRequest.builder()
+                                .withWarehouseId(unauthenticatedRequest.getWarehouseId())
                                 .withName(unauthenticatedRequest.getName())
                                 .withCategory(unauthenticatedRequest.getCategory())
                                 .withSalesForecast(unauthenticatedRequest.getSalesForecast())

@@ -21,7 +21,8 @@ public class GetAllWarehousesRequest {
                 '}';
     }
 
-    public static Builder builder() { return new Builder(); }
+    public static Builder builder() {
+        return new Builder(); }
 
     @JsonPOJOBuilder
     public static class Builder {

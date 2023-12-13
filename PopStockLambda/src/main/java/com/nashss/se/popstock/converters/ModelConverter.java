@@ -16,6 +16,7 @@ public class ModelConverter {
                 .withPerPallet(item.getPerPallet())
                 .withWeight(item.getWeight())
                 .withRateOfReplenishment(item.getRateOfReplenishment())
+                .withActive(item.isActive())
                 .build();
     }
 
