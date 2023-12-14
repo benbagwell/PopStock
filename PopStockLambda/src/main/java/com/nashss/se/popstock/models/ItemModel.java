@@ -78,7 +78,6 @@ public class ItemModel {
 
         private String warehouseId;
         private String itemId;
-
         private int count;
         private String category;
         private String name;
