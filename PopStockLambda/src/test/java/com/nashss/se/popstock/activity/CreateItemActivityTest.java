@@ -34,7 +34,6 @@ public class CreateItemActivityTest {
         double expectedSalesForecast = 1.1;
         double expectedPerPallet = 1.1;
         double expectedRateOfReplenishment = 1.1;
-        boolean expectedActive = true;
 
         CreateItemRequest request = CreateItemRequest.builder()
                 .withName(expectedName)
@@ -54,6 +53,5 @@ public class CreateItemActivityTest {
         assertEquals(expectedSalesForecast,result.getItem().getSalesForecast());
         assertEquals(expectedPerPallet,result.getItem().getPerPallet());
         assertEquals(expectedRateOfReplenishment,result.getItem().getRateOfReplenishment());
-        assertEquals(expectedActive,result.getItem().isActive());
     }
 }

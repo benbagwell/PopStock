@@ -6,19 +6,12 @@ import java.util.Objects;
 public class TransactionModel {
 
     private final String warehouseId;
-
     private final String transactionId;
-
     private final String shipmentId;
-
     private final String itemId;
-
     private final Integer count;
-
     private final LocalDate transactionDate;
-
     private final String partnerId;
-
     private final String transactionType;
 
     public TransactionModel(String warehouseId, String transactionId, String shipmentId, String itemId, Integer count,
