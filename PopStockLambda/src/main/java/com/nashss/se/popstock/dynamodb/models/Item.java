@@ -9,13 +9,13 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 public class Item {
     private String warehouseId;
     private String itemId;
+    private int count;
     private String category;
     private String name;
     private double salesForecast;
     private double perPallet;
     private double weight;
     private double rateOfReplenishment;
-    private boolean active;
 
     public Item() {
     }
@@ -32,6 +32,15 @@ public class Item {
 
     public void setItemId(String itemId) {
         this.itemId = itemId;
+    }
+
+    @DynamoDBAttribute(attributeName = "count")
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     @DynamoDBAttribute(attributeName = "category")
@@ -88,12 +97,4 @@ public class Item {
         this.rateOfReplenishment = rateOfReplenishment;
     }
 
-    @DynamoDBAttribute(attributeName = "active")
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
 }

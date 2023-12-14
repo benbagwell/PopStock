@@ -24,4 +24,6 @@ public interface ServiceComponent {
 
     GetItemsActivity provideGetItemsActivity();
 
+    CreateTransactionActivity provideCreateTransactionActivity();
+
 }

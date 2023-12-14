@@ -33,6 +33,10 @@ public class ItemDao {
         this.dynamoDBMapper.delete(item);
     }
 
+    public Item getItem(Item item) {
+        return  dynamoDBMapper.load(item);
+    }
+
     public List<Item> getItems(String warehouseId) {
         Item itemPartition = new Item();
         itemPartition.setWarehouseId(warehouseId);
@@ -42,4 +46,5 @@ public class ItemDao {
 
         return this.dynamoDBMapper.query(Item.class, dynamoDBQueryExpression);
     }
+
 }
