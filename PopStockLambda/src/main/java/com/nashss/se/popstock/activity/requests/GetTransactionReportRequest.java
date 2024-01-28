@@ -62,6 +62,6 @@ public class GetTransactionReportRequest {
             return this;
         }
 
-
+        public GetTransactionReportRequest build() { return new GetTransactionReportRequest(warehouseId, startDate, endDate); }
     }
 }

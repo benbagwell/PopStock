@@ -8,6 +8,7 @@ import java.time.LocalDate;
 @DynamoDBTable(tableName = "transactions")
 public class Transaction {
 
+    public static final String SHIPPING_DATE_INDEX = "shipping_date_index";
     private String warehouseId;
 
     private String transactionId;
@@ -25,7 +26,7 @@ public class Transaction {
     private String transactionType;
 
     @DynamoDBHashKey(attributeName = "warehouse_id")
-    @DynamoDBIndexHashKey(globalSecondaryIndexName = "shipping_date_index")
+    @DynamoDBIndexHashKey(globalSecondaryIndexName = SHIPPING_DATE_INDEX)
     public String getWarehouseId() {
         return warehouseId;
     }
@@ -72,7 +73,7 @@ public class Transaction {
 
     @DynamoDBAttribute(attributeName = "transaction_date")
     @DynamoDBTypeConverted(converter = LocalDateToStringConverter.class)
-    @DynamoDBIndexRangeKey(globalSecondaryIndexName = "shipping_date_index")
+    @DynamoDBIndexRangeKey(globalSecondaryIndexName = SHIPPING_DATE_INDEX)
     public LocalDate getTransactionDate() {
         return transactionDate;
     }
