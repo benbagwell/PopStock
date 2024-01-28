@@ -1,14 +1,14 @@
 package com.nashss.se.popstock.dynamodb.models;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
+import com.nashss.se.popstock.converters.LocalDateToStringConverter;
 
 import java.time.LocalDate;
 
 @DynamoDBTable(tableName = "transactions")
 public class Transaction {
 
+    public static final String SHIPPING_DATE_INDEX = "shipping_date_index";
     private String warehouseId;
 
     private String transactionId;
@@ -26,6 +26,7 @@ public class Transaction {
     private String transactionType;
 
     @DynamoDBHashKey(attributeName = "warehouse_id")
+    @DynamoDBIndexHashKey(globalSecondaryIndexName = SHIPPING_DATE_INDEX)
     public String getWarehouseId() {
         return warehouseId;
     }
@@ -71,6 +72,8 @@ public class Transaction {
     }
 
     @DynamoDBAttribute(attributeName = "transaction_date")
+    @DynamoDBTypeConverted(converter = LocalDateToStringConverter.class)
+    @DynamoDBIndexRangeKey(globalSecondaryIndexName = SHIPPING_DATE_INDEX)
     public LocalDate getTransactionDate() {
         return transactionDate;
     }
