@@ -35,7 +35,6 @@ public class ModelConverter {
         return TransactionModel.builder()
                 .withWarehouseId(transaction.getWarehouseId())
                 .withTransactionId(transaction.getTransactionId())
-                .withShipmentId(transaction.getShipmentId())
                 .withItemId(transaction.getItemId())
                 .withCount(transaction.getCount())
                 .withTransactionDate(transaction.getTransactionDate())

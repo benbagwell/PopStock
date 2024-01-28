@@ -4,7 +4,6 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
 import com.nashss.se.popstock.dynamodb.models.Item;
-import com.nashss.se.popstock.metrics.MetricsPublisher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -23,9 +22,6 @@ public class ItemDaoTest {
     private DynamoDBMapper dynamoDBMapper;
 
     @Mock
-    private MetricsPublisher metricsPublisher;
-
-    @Mock
     private PaginatedQueryList<Item> queryList;
 
     private ItemDao itemDao;
@@ -33,7 +29,7 @@ public class ItemDaoTest {
     @BeforeEach
     public void setup() {
         openMocks(this);
-        itemDao = new ItemDao(dynamoDBMapper,metricsPublisher);
+        itemDao = new ItemDao(dynamoDBMapper);
     }
 
     @Test

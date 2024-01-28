@@ -8,14 +8,16 @@ import java.util.Map;
 public class CreateTransactionRequest {
 
     private final String warehouseId;
-    private final Map<String, Integer> inventoryUpdate;
+    private final String itemId;
+    private final Integer count;
     private final LocalDate transactionDate;
     private final String partnerId;
     private final String transactionType;
 
-    public CreateTransactionRequest(String warehouseId, Map<String, Integer> inventoryUpdate, LocalDate transactionDate, String partnerId, String transactionType) {
+    public CreateTransactionRequest(String warehouseId, String itemId, Integer count, LocalDate transactionDate, String partnerId, String transactionType) {
         this.warehouseId = warehouseId;
-        this.inventoryUpdate = inventoryUpdate;
+        this.itemId = itemId;
+        this.count = count;
         this.transactionDate = transactionDate;
         this.partnerId = partnerId;
         this.transactionType = transactionType;
@@ -25,9 +27,13 @@ public class CreateTransactionRequest {
         return warehouseId;
     }
 
-   public Map<String, Integer> getInventoryUpdate() {
-        return inventoryUpdate;
-   }
+    public String getItemId() {
+        return itemId;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
 
     public LocalDate getTransactionDate() {
         return transactionDate;
@@ -45,7 +51,8 @@ public class CreateTransactionRequest {
     public String toString() {
         return "CreateTransactionRequest{" +
                 "warehouseId='" + warehouseId + '\'' +
-                ", inventoryUpdate=" + inventoryUpdate +
+                ", itemId='" + itemId + '\'' +
+                ", count=" + count +
                 ", transactionDate=" + transactionDate +
                 ", partnerId='" + partnerId + '\'' +
                 ", transactionType='" + transactionType + '\'' +
@@ -59,7 +66,8 @@ public class CreateTransactionRequest {
     @JsonPOJOBuilder
     public static class Builder {
         private String warehouseId;
-        private Map<String, Integer> inventoryUpdate;
+        private String itemId;
+        private Integer count;
         private LocalDate transactionDate;
         private String partnerId;
         private String transactionType;
@@ -69,8 +77,13 @@ public class CreateTransactionRequest {
             return this;
         }
 
-        public Builder withInventoryUpdate(Map<String, Integer> inventoryUpdate) {
-            this.inventoryUpdate = inventoryUpdate;
+        public Builder withItemId(String itemId) {
+            this.itemId = itemId;
+            return this;
+        }
+
+        public Builder withCount(Integer count) {
+            this.count = count;
             return this;
         }
 
@@ -90,7 +103,7 @@ public class CreateTransactionRequest {
         }
 
         public CreateTransactionRequest build() {
-            return new CreateTransactionRequest(warehouseId, inventoryUpdate, transactionDate, partnerId, transactionType);
+            return new CreateTransactionRequest(warehouseId, itemId, count, transactionDate, partnerId, transactionType);
         }
     }
 }

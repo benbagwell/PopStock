@@ -4,7 +4,6 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
 import com.nashss.se.popstock.dynamodb.models.Transaction;
-import com.nashss.se.popstock.metrics.MetricsPublisher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -22,9 +21,6 @@ public class TransactionDaoTest {
     private DynamoDBMapper dynamoDBMapper;
 
     @Mock
-    private MetricsPublisher metricsPublisher;
-
-    @Mock
     private PaginatedQueryList<Transaction> queryList;
 
     private TransactionDao transactionDao;
@@ -32,7 +28,7 @@ public class TransactionDaoTest {
     @BeforeEach
     public void setup() {
         openMocks(this);
-        transactionDao = new TransactionDao(dynamoDBMapper,metricsPublisher);
+        transactionDao = new TransactionDao(dynamoDBMapper);
     }
 
     @Test

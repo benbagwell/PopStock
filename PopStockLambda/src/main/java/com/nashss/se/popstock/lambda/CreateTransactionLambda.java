@@ -18,7 +18,8 @@ public class CreateTransactionLambda
                     return input.fromUserClaims(claims ->
                             CreateTransactionRequest.builder()
                                     .withWarehouseId(unauthenticatedRequest.getWarehouseId())
-                                    .withInventoryUpdate(unauthenticatedRequest.getInventoryUpdate())
+                                    .withItemId(unauthenticatedRequest.getItemId())
+                                    .withCount(unauthenticatedRequest.getCount())
                                     .withTransactionDate(unauthenticatedRequest.getTransactionDate())
                                     .withPartnerId(unauthenticatedRequest.getPartnerId())
                                     .withTransactionType(unauthenticatedRequest.getTransactionType())

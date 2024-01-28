@@ -1,21 +1,17 @@
 package com.nashss.se.popstock.activity.results;
 
-import com.nashss.se.popstock.activity.requests.CreateTransactionRequest;
-import com.nashss.se.popstock.dynamodb.models.Transaction;
 import com.nashss.se.popstock.models.TransactionModel;
-
-import java.util.List;
 
 public class CreateTransactionResult {
 
-    private final List<TransactionModel> transactions;
+    private final TransactionModel transaction;
 
-    public CreateTransactionResult(List<TransactionModel> transactions) {
-        this.transactions = transactions;
+    public CreateTransactionResult(TransactionModel transaction) {
+        this.transaction = transaction;
     }
 
-    public List<TransactionModel> getTransactions() {
-        return transactions;
+    public TransactionModel getTransaction() {
+        return transaction;
     }
 
     public static Builder builder() {
@@ -23,13 +19,13 @@ public class CreateTransactionResult {
     }
 
     public static class Builder {
-        private List<TransactionModel> transactions;
+        private TransactionModel transaction;
 
-        public Builder withTransactions(List<TransactionModel> transactions) {
-            this.transactions = transactions;
+        public Builder withTransaction(TransactionModel transaction) {
+            this.transaction = transaction;
             return this;
         }
 
-        public CreateTransactionResult build() { return new CreateTransactionResult(transactions); }
+        public CreateTransactionResult build() { return new CreateTransactionResult(transaction); }
     }
 }

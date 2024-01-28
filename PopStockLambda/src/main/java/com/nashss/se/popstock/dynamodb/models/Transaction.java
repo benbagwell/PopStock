@@ -13,8 +13,6 @@ public class Transaction {
 
     private String transactionId;
 
-    private String shipmentId;
-
     private String itemId;
 
     private Integer count;
@@ -42,15 +40,6 @@ public class Transaction {
 
     public void setTransactionId(String transactionId) {
         this.transactionId = transactionId;
-    }
-
-    @DynamoDBAttribute(attributeName = "shipment_id")
-    public String getShipmentId() {
-        return shipmentId;
-    }
-
-    public void setShipmentId(String shipmentId) {
-        this.shipmentId = shipmentId;
     }
 
     @DynamoDBAttribute(attributeName = "item_id")
