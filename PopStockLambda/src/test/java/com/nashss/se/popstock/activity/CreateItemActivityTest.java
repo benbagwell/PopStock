@@ -49,9 +49,6 @@ public class CreateItemActivityTest {
 
         assertNotNull(result.getItem().getItemId());
         assertEquals(expectedName,result.getItem().getName());
-        assertEquals(expectedCategory,result.getItem().getCategory());
-        assertEquals(expectedSalesForecast,result.getItem().getSalesForecast());
-        assertEquals(expectedPerPallet,result.getItem().getPerPallet());
-        assertEquals(expectedRateOfReplenishment,result.getItem().getRateOfReplenishment());
+
     }
 }

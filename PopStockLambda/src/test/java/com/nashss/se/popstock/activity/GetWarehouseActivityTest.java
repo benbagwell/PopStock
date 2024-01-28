@@ -29,13 +29,11 @@ public class GetWarehouseActivityTest {
         String userId = "userId";
         String expectedWarehouseId = "expectedWarehouseId";
         String expectedName = "expectedName";
-        String expectedRegion = "expectedRegion";
 
         Warehouse warehouse = new Warehouse();
         warehouse.setUserId(userId);
         warehouse.setWarehouseId(expectedWarehouseId);
         warehouse.setName(expectedName);
-        warehouse.setRegion(expectedRegion);
 
         when(warehouseDao.getWarehouse(userId,expectedWarehouseId)).thenReturn(warehouse);
 
@@ -48,6 +46,5 @@ public class GetWarehouseActivityTest {
 
         assertEquals(expectedName,result.getWarehouse().getName());
         assertEquals(expectedWarehouseId,result.getWarehouse().getWarehouseId());
-        assertEquals(expectedRegion,result.getWarehouse().getRegion());
     }
 }

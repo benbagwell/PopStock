@@ -30,12 +30,7 @@ public class CreateItemActivity {
         newItem.setWarehouseId(createItemRequest.getWarehouseId());
         newItem.setItemId(UUID.randomUUID().toString());
         newItem.setCount(0);
-        newItem.setCategory(createItemRequest.getCategory());
         newItem.setName(createItemRequest.getName());
-        newItem.setSalesForecast(createItemRequest.getSalesForecast());
-        newItem.setPerPallet(createItemRequest.getPerPallet());
-        newItem.setWeight(createItemRequest.getWeight());
-        newItem.setRateOfReplenishment(createItemRequest.getRateOfReplenishment());
 
         itemDao.saveItem(newItem);
 

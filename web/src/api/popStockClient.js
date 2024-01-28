@@ -146,6 +146,20 @@ export default class PopStockClient extends BindingClass {
         }
     }
 
+    async getWarehouses() {
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can get Items.");
+            const response = await this.axiosClient.get(`/warehouses/${warehouse}/inventory`, {
+                headers: {
+                   Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data.items;
+        } catch (error) {
+            this.handleError(error)
+        }
+    }
+
     handleError(error, errorCallback) {
         console.error(error);
 

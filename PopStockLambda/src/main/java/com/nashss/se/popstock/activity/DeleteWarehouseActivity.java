@@ -33,8 +33,10 @@ public class DeleteWarehouseActivity {
 
     public DeleteWarehouseResult handleRequest(final DeleteWarehouseRequest deleteWarehouseRequest) {
 
-        Warehouse warehouse = warehouseDao.getWarehouse(deleteWarehouseRequest.getUserId(),
-                deleteWarehouseRequest.getUserId());
+        Warehouse warehouse = new Warehouse();
+        warehouse.setWarehouseId(deleteWarehouseRequest.getWarehouseId());
+        warehouse.setUserId(deleteWarehouseRequest.getUserId());
+
         List<Item> items = itemDao.getItems(warehouse.getWarehouseId());
         List<Transaction> transactions = transactionDao.getTransactions(warehouse.getWarehouseId());
 

@@ -40,6 +40,7 @@ public class TransactionDao {
         transactionPartition.setWarehouseId(warehouseId);
 
         DynamoDBQueryExpression<Transaction> dynamoDBQueryExpression = new DynamoDBQueryExpression<Transaction>()
+                .withConsistentRead(false)
                 .withHashKeyValues(transactionPartition);
 
         return this.dynamoDBMapper.query(Transaction.class, dynamoDBQueryExpression);
