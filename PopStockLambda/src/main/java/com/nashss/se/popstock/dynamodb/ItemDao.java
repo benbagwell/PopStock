@@ -4,8 +4,6 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.nashss.se.popstock.dynamodb.models.Item;
 
-import com.nashss.se.popstock.metrics.MetricsPublisher;
-
 import java.util.List;
 
 import javax.inject.Inject;
@@ -16,12 +14,10 @@ import javax.inject.Singleton;
 public class ItemDao {
 
     private final DynamoDBMapper dynamoDBMapper;
-    private final MetricsPublisher metricsPublisher;
 
     @Inject
-    public ItemDao(DynamoDBMapper dynamoDBMapper, MetricsPublisher metricsPublisher) {
+    public ItemDao(DynamoDBMapper dynamoDBMapper) {
         this.dynamoDBMapper = dynamoDBMapper;
-        this.metricsPublisher = metricsPublisher;
     }
 
     public Item saveItem(Item item) {

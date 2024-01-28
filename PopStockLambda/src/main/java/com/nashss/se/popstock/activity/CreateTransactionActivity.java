@@ -12,7 +12,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -30,52 +29,42 @@ public class CreateTransactionActivity {
     }
 
     public CreateTransactionResult handleRequest(final CreateTransactionRequest createTransactionRequest) {
-        Map<String, Integer> inventoryUpdate = createTransactionRequest.getInventoryUpdate();
-        String shipmentId = UUID.randomUUID().toString();
-        List<Transaction> transactions = new ArrayList<>();
-        ModelConverter modelConverter = new ModelConverter();
 
-        for(Map.Entry<String, Integer> entry: inventoryUpdate.entrySet()){
-            Transaction transaction = new Transaction();
-            transaction.setWarehouseId(createTransactionRequest.getWarehouseId());
-            transaction.setTransactionId(UUID.randomUUID().toString());
-            transaction.setShipmentId(shipmentId);
-            transaction.setItemId(entry.getKey());
-            transaction.setCount(entry.getValue());
-            transaction.setTransactionDate(transaction.getTransactionDate());
-            transaction.setPartnerId(createTransactionRequest.getPartnerId());
-            transaction.setTransactionType(createTransactionRequest.getTransactionType());
+        Transaction transaction = new Transaction();
+        transaction.setWarehouseId(createTransactionRequest.getWarehouseId());
+        transaction.setTransactionId(UUID.randomUUID().toString());
+        transaction.setItemId(createTransactionRequest.getItemId());
+        transaction.setCount(createTransactionRequest.getCount());
+        transaction.setTransactionDate(transaction.getTransactionDate());
+        transaction.setPartnerId(createTransactionRequest.getPartnerId());
+        transaction.setTransactionType(createTransactionRequest.getTransactionType());
 
-            transactions.add(transaction);
-        }
-        updateItemCount(transactions);
-        transactions.forEach(transactionDao::saveTransaction);
+        updateItemCount(transaction);
+        transactionDao.saveTransaction(transaction);
 
         return CreateTransactionResult.builder()
-                .withTransactions(transactions.stream()
-                        .map(modelConverter::toTransactionModel)
-                        .collect(Collectors.toList()))
+                .withTransaction(new ModelConverter().toTransactionModel(transaction))
                 .build();
     }
 
-    public void updateItemCount(List<Transaction> transactions) {
-        for(Transaction transaction: transactions) {
-            Item keyItem = new Item();
-            keyItem.setWarehouseId(transaction.getWarehouseId());
-            keyItem.setItemId(transaction.getItemId());
+    public void updateItemCount(Transaction transaction) {
 
-            Item item = itemDao.getItem(keyItem);
+        Item keyItem = new Item();
+        keyItem.setWarehouseId(transaction.getWarehouseId());
+        keyItem.setItemId(transaction.getItemId());
 
-            if(transaction.getTransactionType().equals("outgoing")) {
-                if (item.getCount() - transaction.getCount() < 0) {
-                    throw new RuntimeException("Item " + item.getItemId() + " has insufficient quantity for shipment");
-                } else {
-                    item.setCount(item.getCount()-transaction.getCount());
-                }
+        Item item = itemDao.getItem(keyItem);
+
+        if(transaction.getTransactionType().equals("outgoing")) {
+            if (item.getCount() - transaction.getCount() < 0) {
+                throw new RuntimeException("Item " + item.getItemId() + " has insufficient quantity for shipment");
             } else {
-                item.setCount(item.getCount()+transaction.getCount());
+                item.setCount(item.getCount()-transaction.getCount());
+                itemDao.saveItem(item);
             }
-
+        } else {
+            item.setCount(item.getCount()+transaction.getCount());
+            itemDao.saveItem(item);
         }
 
     }

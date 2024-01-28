@@ -7,18 +7,16 @@ public class TransactionModel {
 
     private final String warehouseId;
     private final String transactionId;
-    private final String shipmentId;
     private final String itemId;
     private final Integer count;
     private final LocalDate transactionDate;
     private final String partnerId;
     private final String transactionType;
 
-    public TransactionModel(String warehouseId, String transactionId, String shipmentId, String itemId, Integer count,
+    public TransactionModel(String warehouseId, String transactionId, String itemId, Integer count,
                             LocalDate transactionDate, String partnerId, String transactionType) {
         this.warehouseId = warehouseId;
         this.transactionId = transactionId;
-        this.shipmentId = shipmentId;
         this.itemId = itemId;
         this.count = count;
         this.transactionDate = transactionDate;
@@ -32,10 +30,6 @@ public class TransactionModel {
 
     public String getTransactionId() {
         return transactionId;
-    }
-
-    public String getShipmentId() {
-        return shipmentId;
     }
 
     public String getItemId() {
@@ -63,16 +57,12 @@ public class TransactionModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TransactionModel that = (TransactionModel) o;
-        return Objects.equals(warehouseId, that.warehouseId) && Objects.equals(transactionId, that.transactionId) &&
-                Objects.equals(shipmentId, that.shipmentId) && Objects.equals(itemId, that.itemId) && Objects.equals(count, that.count)
-                && Objects.equals(transactionDate, that.transactionDate) && Objects.equals(partnerId, that.partnerId)
-                && Objects.equals(transactionType, that.transactionType);
+        return Objects.equals(warehouseId, that.warehouseId) && Objects.equals(transactionId, that.transactionId) && Objects.equals(itemId, that.itemId) && Objects.equals(count, that.count) && Objects.equals(transactionDate, that.transactionDate) && Objects.equals(partnerId, that.partnerId) && Objects.equals(transactionType, that.transactionType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(warehouseId, transactionId, shipmentId, itemId, count,
-                transactionDate, partnerId, transactionType);
+        return Objects.hash(warehouseId, transactionId, itemId, count, transactionDate, partnerId, transactionType);
     }
 
     public static Builder builder() {return new Builder();}
@@ -81,8 +71,6 @@ public class TransactionModel {
         private String warehouseId;
 
         private String transactionId;
-
-        private String shipmentId;
 
         private String itemId;
 
@@ -101,11 +89,6 @@ public class TransactionModel {
 
         public Builder withTransactionId(String transactionId) {
             this.transactionId = transactionId;
-            return this;
-        }
-
-        public Builder withShipmentId(String shipmentId) {
-            this.shipmentId = shipmentId;
             return this;
         }
 
@@ -134,7 +117,7 @@ public class TransactionModel {
             return this;
         }
 
-        public TransactionModel build() {return new TransactionModel(warehouseId, transactionId, shipmentId, itemId, count, transactionDate, partnerId, transactionType);}
+        public TransactionModel build() {return new TransactionModel(warehouseId, transactionId, itemId, count, transactionDate, partnerId, transactionType);}
     }
 
 }

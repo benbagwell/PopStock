@@ -5,7 +5,6 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.nashss.se.popstock.dynamodb.models.Transaction;
-import com.nashss.se.popstock.metrics.MetricsPublisher;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,12 +20,10 @@ import javax.inject.Singleton;
 public class TransactionDao {
 
     private final DynamoDBMapper dynamoDBMapper;
-    private final MetricsPublisher metricsPublisher;
 
     @Inject
-    public TransactionDao(DynamoDBMapper dynamoDBMapper, MetricsPublisher metricsPublisher) {
+    public TransactionDao(DynamoDBMapper dynamoDBMapper) {
         this.dynamoDBMapper = dynamoDBMapper;
-        this.metricsPublisher = metricsPublisher;
     }
 
     public Transaction saveTransaction(Transaction transaction) {

@@ -4,7 +4,6 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
 import com.nashss.se.popstock.dynamodb.models.Warehouse;
-import com.nashss.se.popstock.metrics.MetricsPublisher;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,9 +24,6 @@ public class WarehouseDaoTest {
     private DynamoDBMapper dynamoDBMapper;
 
     @Mock
-    private MetricsPublisher metricsPublisher;
-
-    @Mock
     private PaginatedQueryList<Warehouse> queryList;
 
     private WarehouseDao warehouseDao;
@@ -35,7 +31,7 @@ public class WarehouseDaoTest {
     @BeforeEach
     public void setup() {
         openMocks(this);
-        warehouseDao = new WarehouseDao(dynamoDBMapper,metricsPublisher);
+        warehouseDao = new WarehouseDao(dynamoDBMapper);
     }
 
     @Test

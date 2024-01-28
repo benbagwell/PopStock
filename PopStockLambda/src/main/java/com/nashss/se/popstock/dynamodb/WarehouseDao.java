@@ -3,7 +3,6 @@ package com.nashss.se.popstock.dynamodb;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.nashss.se.popstock.dynamodb.models.Warehouse;
-import com.nashss.se.popstock.metrics.MetricsPublisher;
 
 import java.util.List;
 
@@ -15,12 +14,10 @@ import javax.inject.Singleton;
 public class WarehouseDao {
 
     private final DynamoDBMapper dynamoDBMapper;
-    private final MetricsPublisher metricsPublisher;
 
     @Inject
-    public WarehouseDao(DynamoDBMapper dynamoDBMapper, MetricsPublisher metricsPublisher) {
+    public WarehouseDao(DynamoDBMapper dynamoDBMapper) {
         this.dynamoDBMapper = dynamoDBMapper;
-        this.metricsPublisher = metricsPublisher;
     }
 
     public Warehouse saveWarehouse(Warehouse warehouse) {
