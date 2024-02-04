@@ -30,17 +30,10 @@ public class CreateItemActivityTest {
     @Test
     public void handleRequest_createsAndSavesItem() {
         String expectedName = "name";
-        String expectedCategory = "category";
-        double expectedSalesForecast = 1.1;
-        double expectedPerPallet = 1.1;
-        double expectedRateOfReplenishment = 1.1;
+
 
         CreateItemRequest request = CreateItemRequest.builder()
                 .withName(expectedName)
-                .withCategory(expectedCategory)
-                .withSalesForecast(expectedSalesForecast)
-                .withPerPallet(expectedPerPallet)
-                .withRateOfReplenishment(expectedRateOfReplenishment)
                 .build();
 
         CreateItemResult result = createItemActivity.handleRequest(request);

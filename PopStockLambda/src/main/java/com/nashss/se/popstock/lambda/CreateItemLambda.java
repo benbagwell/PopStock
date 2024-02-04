@@ -17,11 +17,6 @@ public class CreateItemLambda
                         CreateItemRequest.builder()
                                 .withWarehouseId(unauthenticatedRequest.getWarehouseId())
                                 .withName(unauthenticatedRequest.getName())
-                                .withCategory(unauthenticatedRequest.getCategory())
-                                .withSalesForecast(unauthenticatedRequest.getSalesForecast())
-                                .withPerPallet(unauthenticatedRequest.getPerPallet())
-                                .withWeight(unauthenticatedRequest.getWeight())
-                                .withRateOfReplenishment(unauthenticatedRequest.getRateOfReplenishment())
                                 .build());
             },
             (request, serviceComponent) ->

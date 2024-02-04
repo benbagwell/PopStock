@@ -62,23 +62,18 @@ export default class PopStockClient extends BindingClass {
         return await this.authenticator.getUserToken();
     }
 
-    async createItem(category,name,salesForecast,perPallet,weight,rateOfReplenishment, errorCallback){
+    async createItem(warehouse, name){
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can create Items.");
-            const response = await this.axiosClient.post(`warehouses/${warehouseId}/inventory`, {
-                warehouse:warehouse,
-                category:category,
+            const response = await this.axiosClient.post(`warehouses/${warehouse}/inventory`, {
+                warehouseId:warehouse,
                 name:name,
-                salesForecast:salesForecast,
-                perPallet:perPallet,
-                weight:weight,
-                rateOfReplenishment:rateOfReplenishment,
             }, {
                 headers: {
                    Authorization: `Bearer ${token}`
                 }
             });
-            return response.data.event;
+            return response.data.item;
         } catch (error) {
             this.handleError(error)
         }
@@ -95,7 +90,7 @@ export default class PopStockClient extends BindingClass {
                    Authorization: `Bearer ${token}`
                 }
             });
-            return response.data.event;
+            return response.data.warehouse;
         } catch (error) {
             this.handleError(error)
         }
@@ -146,7 +141,7 @@ export default class PopStockClient extends BindingClass {
         }
     }
 
-    async getWarehouses() {
+    async getInventory(warehouse) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can get Items.");
             const response = await this.axiosClient.get(`/warehouses/${warehouse}/inventory`, {
@@ -154,6 +149,7 @@ export default class PopStockClient extends BindingClass {
                    Authorization: `Bearer ${token}`
                 }
             });
+            console.log("In client getInventory: " + response.data.items);
             return response.data.items;
         } catch (error) {
             this.handleError(error)

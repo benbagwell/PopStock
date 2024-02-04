@@ -11,18 +11,16 @@ const EMPTY_DATASTORE_STATE = {
 class GetWarehouses extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['mount', 'loadWarehouses', 'addHTMLRowsToTable'], this);
-   
+        this.bindClassMethods(['mount', 'loadWarehouses','addHTMLRowsToTable'], this);
+
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
         this.header = new Header(this.dataStore);
-        this.displayWarehouses = this.displayWarehouses.bind(this);
     }
 
     mount() {
-       this.dataStore.addChangeListener(this.displayWarehouses);
         this.header.addHeaderToPage();
         this.client = new PopStockClient();
-        this.displayWarehouses();
+        this.loadWarehouses();
     }
 
 
@@ -32,30 +30,27 @@ class GetWarehouses extends BindingClass {
          this.dataStore.setState({
                  [WAREHOUSE_LIST]: warehouses,
              });
-    }
-
-    displayWarehouses() {
 
         const warehousesTableHTML = document.getElementById('warehouses-table');
-
         this.addHTMLRowsToTable(warehousesTableHTML);
     }
 
     async addHTMLRowsToTable(warehousesTableHTML) {
-        const warehouseList = await this.client.getWarehouses();
+        const warehouseList = this.dataStore.get(WAREHOUSE_LIST);
+        var warehouses = warehouseList.warehouses;
+       
         
-       if (warehouseList.warehouses.length == 0 || warehouseList.warehouses == null) {
+       if (warehouses.length == 0 || warehouses == null) {
             const noWarehousesCell = document.createElement('td');
             noWarehousesCell.textContent = "There are currently no warehouses to display.  Please create one.";
             const row = document.createElement('tr');
             row.appendChild(noWarehousesCell);
             warehousesTableHTML.appendChild(row);
         }
-        for (const warehouse of warehouseList.warehouses) {
+        for (const warehouse of warehouses) {
             const row = document.createElement('tr');
 
             const warehouseNameCell = document.createElement('td');
-            //const warehouseId = '${warehouse.warehouseId}';
             warehouseNameCell.textContent = warehouse.name;
             row.appendChild(warehouseNameCell);
 
@@ -64,7 +59,7 @@ class GetWarehouses extends BindingClass {
             selectButton.textContent = 'Select';
             selectButton.className = 'button';
             selectButton.addEventListener('click', () => {
-                window.location.href = '/inventory.html?warehouse=' + warehouse.warehouseId;
+                window.location.href = '/inventory.html?warehouse=' + warehouse.warehouseId + "&name=" + warehouse.name;
             });
             selectButtonCell.appendChild(selectButton);
             row.appendChild(selectButtonCell);

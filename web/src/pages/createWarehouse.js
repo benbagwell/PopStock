@@ -7,9 +7,8 @@ import DataStore from '../util/DataStore';
 class CreateWarehouse extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['mount', 'submit', 'redirectToViewWarehouses'], this);
+        this.bindClassMethods(['mount', 'submit'], this);
         this.dataStore = new DataStore();
-        this.dataStore.addChangeListener(this.redirectToViewWarehouses);
         this.header = new Header(this.dataStore);
     }
 
@@ -28,21 +27,13 @@ class CreateWarehouse extends BindingClass {
         evt.preventDefault();
 
         const createButton = document.getElementById('create');
-        const origButtonText = createButton.innerText;
         createButton.innerText = 'Loading...';
 
         const name = document.getElementById('name').value;
-
-        const warehouse = await this.client.createWarehouse(name);
+        await this.client.createWarehouse(name);
         window.location.href = '/index.html';
     }
 
-    redirectToViewWarehouses() {
-        const warehouse = this.dataStore.get('warehouse');
-        if (warehouse != null) {
-            window.location.href = `/index.html`;
-        }
-    }
 }
 
 const main = async () => {

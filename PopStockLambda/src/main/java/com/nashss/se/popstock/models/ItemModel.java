@@ -47,7 +47,6 @@ public class ItemModel {
         private String warehouseId;
         private String itemId;
         private int count;
-        private String category;
         private String name;
 
         public Builder withWarehouseId(String warehouseId) {
@@ -62,11 +61,6 @@ public class ItemModel {
 
         public Builder withCount(int count) {
             this.count = count;
-            return this;
-        }
-
-        public Builder withCategory(String category) {
-            this.category = category;
             return this;
         }
 
