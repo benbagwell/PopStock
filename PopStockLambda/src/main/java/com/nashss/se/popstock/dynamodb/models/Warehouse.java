@@ -12,7 +12,6 @@ public class Warehouse {
     private String userId;;
     private String warehouseId;
     private String name;
-    private String region;
 
     @DynamoDBHashKey(attributeName = "user_id")
     public String getUserId() {
@@ -39,15 +38,6 @@ public class Warehouse {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @DynamoDBAttribute(attributeName = "region")
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
     }
 
 }

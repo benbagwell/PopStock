@@ -30,17 +30,10 @@ public class CreateItemActivityTest {
     @Test
     public void handleRequest_createsAndSavesItem() {
         String expectedName = "name";
-        String expectedCategory = "category";
-        double expectedSalesForecast = 1.1;
-        double expectedPerPallet = 1.1;
-        double expectedRateOfReplenishment = 1.1;
+
 
         CreateItemRequest request = CreateItemRequest.builder()
                 .withName(expectedName)
-                .withCategory(expectedCategory)
-                .withSalesForecast(expectedSalesForecast)
-                .withPerPallet(expectedPerPallet)
-                .withRateOfReplenishment(expectedRateOfReplenishment)
                 .build();
 
         CreateItemResult result = createItemActivity.handleRequest(request);
@@ -49,9 +42,6 @@ public class CreateItemActivityTest {
 
         assertNotNull(result.getItem().getItemId());
         assertEquals(expectedName,result.getItem().getName());
-        assertEquals(expectedCategory,result.getItem().getCategory());
-        assertEquals(expectedSalesForecast,result.getItem().getSalesForecast());
-        assertEquals(expectedPerPallet,result.getItem().getPerPallet());
-        assertEquals(expectedRateOfReplenishment,result.getItem().getRateOfReplenishment());
+
     }
 }

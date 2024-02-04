@@ -40,13 +40,11 @@ public class GetAllWarehousesActivityTest {
         Warehouse warehouse = new Warehouse();
         warehouse.setUserId(userId);
         warehouse.setWarehouseId("1234");
-        warehouse.setRegion("region");
         warehouse.setName("name");
 
         Warehouse warehouse2 = new Warehouse();
         warehouse2.setUserId(userId);
         warehouse2.setWarehouseId("12342");
-        warehouse2.setRegion("region2");
         warehouse2.setName("name2");
 
         List<Warehouse> warehouses = new ArrayList<>();
@@ -56,13 +54,11 @@ public class GetAllWarehousesActivityTest {
         WarehouseModel warehouseModel = WarehouseModel.builder()
                 .withWarehouseId("1234")
                 .withName("name")
-                .withRegion("region")
                 .build();
 
         WarehouseModel warehouseModel2 = WarehouseModel.builder()
                 .withWarehouseId("12342")
                 .withName("name2")
-                .withRegion("region2")
                 .build();
 
         List<WarehouseModel> modelList = new ArrayList<>();

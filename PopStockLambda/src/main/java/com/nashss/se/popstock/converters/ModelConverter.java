@@ -14,12 +14,8 @@ public class ModelConverter {
                 .withWarehouseId(item.getWarehouseId())
                 .withItemId(item.getItemId())
                 .withCount(item.getCount())
-                .withCategory(item.getCategory())
                 .withName(item.getName())
-                .withSalesForecast(item.getSalesForecast())
-                .withPerPallet(item.getPerPallet())
-                .withWeight(item.getWeight())
-                .withRateOfReplenishment(item.getRateOfReplenishment())
+
                 .build();
     }
 
@@ -27,7 +23,6 @@ public class ModelConverter {
         return WarehouseModel.builder()
                 .withWarehouseId(warehouse.getWarehouseId())
                 .withName(warehouse.getName())
-                .withRegion(warehouse.getRegion())
                 .build();
     }
 

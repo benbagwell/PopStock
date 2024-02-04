@@ -20,7 +20,7 @@ public class DeleteWarehouseLambda extends LambdaActivityRunner<DeleteWarehouseR
 
                 return input.fromUserClaims(claims ->
                         DeleteWarehouseRequest.builder()
-                                .withUserId(claims.get("emails"))
+                                .withUserId(claims.get("email"))
                                 .withWarehouseId(unauthenticatedRequest.getWarehouseId())
                                 .build());
             },

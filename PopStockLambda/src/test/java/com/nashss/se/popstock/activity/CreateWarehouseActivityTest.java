@@ -45,7 +45,6 @@ public class CreateWarehouseActivityTest {
 
         assertNotNull(result.getWarehouse().getWarehouseId());
         assertEquals(expectedName,result.getWarehouse().getName());
-        assertEquals(expectedRegion,result.getWarehouse().getRegion());
-        
+
     }
 }

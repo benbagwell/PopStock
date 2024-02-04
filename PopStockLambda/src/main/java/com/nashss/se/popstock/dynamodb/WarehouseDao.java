@@ -40,6 +40,8 @@ public class WarehouseDao {
     }
 
     public void deleteWarehouse(Warehouse warehouse) {
+        System.out.println("\n**************************\n");
+        System.out.println("warehouseid: " + warehouse.getWarehouseId() + " username: " + warehouse.getUserId());
         dynamoDBMapper.delete(warehouse);
     }
 

@@ -38,7 +38,6 @@ public class UpdateWarehouseActivityTest {
         warehouse.setUserId(userId);
         warehouse.setWarehouseId(expectedWarehouseId);
         warehouse.setName(originalName);
-        warehouse.setRegion(expectedRegion);
 
         when(warehouseDao.getWarehouse(userId,expectedWarehouseId)).thenReturn(warehouse);
 
@@ -52,6 +51,5 @@ public class UpdateWarehouseActivityTest {
 
         assertEquals(updatedName,result.getWarehouse().getName());
         assertEquals(expectedWarehouseId,result.getWarehouse().getWarehouseId());
-        assertEquals(expectedRegion,result.getWarehouse().getRegion());
     }
 }
