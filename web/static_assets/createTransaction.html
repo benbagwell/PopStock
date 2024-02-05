@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript" src="assets/createTransaction.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body class="background">
+<header class="header" id="header"></header>
+<div class="card">
+  <h2 id="warehouse-item-name">Update Inventory</h2>
+    <form class="card-content" id="create-transaction-form">
+    <p class="form-field">
+      <label>Date of Transaction</label>
+      <input type="date" required class="validated-field" id="date" placeholder=""
+             autofocus>
+    </p>
+    <p class="form-field">
+      <label>Inventory Change Amount</label>
+      <input type="number" required class="validated-field" id="count" placeholder=""
+             autofocus>
+    </p>
+    <p class="form-field">
+      <label>Partner ID</label>
+      <input type="text" required class="validated-field" id="partner-id" placeholder=""
+             autofocus>
+    </p>
+    <label for="transaction-type">Transaction Type:</label>
+
+        <select name="Transaction Type" id="transaction-type">
+            <option value="incoming">Incoming</option>
+            <option value="outgoing">Outgoing</option>
+        </select>
+    <p>
+      <a href="#" class="button" id="create">Create Transaction</a>
+    </p>
+    </form>
+</div>
+</body>
+</html>

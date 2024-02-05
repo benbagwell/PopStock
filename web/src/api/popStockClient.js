@@ -6,7 +6,7 @@ export default class PopStockClient extends BindingClass {
     constructor(props = {}) {
         super();
 
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createItem', 'createWarehouse', 'getWarehouses'];
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createItem', 'createWarehouse', 'getWarehouses', 'createTransaction', 'getTransactions'];
         this.bindClassMethods(methodsToBind, this);
 
         this.authenticator = new Authenticator();;
@@ -149,8 +149,42 @@ export default class PopStockClient extends BindingClass {
                    Authorization: `Bearer ${token}`
                 }
             });
-            console.log("In client getInventory: " + response.data.items);
             return response.data.items;
+        } catch (error) {
+            this.handleError(error)
+        }
+    }
+
+    async createTransaction(warehouse, item, count, date, partner, transactionType) {
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can create warehouses.");
+            const response = await this.axiosClient.post(`warehouses/${warehouse}/transactions`, {
+                warehouseId:warehouse,
+                itemId:item,
+                count:count,
+                transactionDate:date,
+                partnerId: partner,
+                transactionType: transactionType,
+            }, {
+                headers: {
+                   Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data.transaction;
+        } catch (error) {
+            this.handleError(error)
+        }
+    }
+
+    async getTransactions(warehouse,startDate,endDate) {
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can get A Transaction Report.");
+            const response = await this.axiosClient.get(`/warehouses/${warehouse}/transactions/${startDate}/${endDate}`, {
+                headers: {
+                   Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data.transactions;
         } catch (error) {
             this.handleError(error)
         }

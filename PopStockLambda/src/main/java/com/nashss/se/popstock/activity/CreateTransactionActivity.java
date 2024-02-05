@@ -35,7 +35,7 @@ public class CreateTransactionActivity {
         transaction.setTransactionId(UUID.randomUUID().toString());
         transaction.setItemId(createTransactionRequest.getItemId());
         transaction.setCount(createTransactionRequest.getCount());
-        transaction.setTransactionDate(transaction.getTransactionDate());
+        transaction.setTransactionDate(createTransactionRequest.getTransactionDate());
         transaction.setPartnerId(createTransactionRequest.getPartnerId());
         transaction.setTransactionType(createTransactionRequest.getTransactionType());
 

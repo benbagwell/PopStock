@@ -15,8 +15,8 @@ public class GetTransactionReportLambda extends LambdaActivityRunner<GetTransact
                 () -> {
                     GetTransactionReportRequest unauthenticatedRequest = input.fromPath(path -> GetTransactionReportRequest.builder()
                             .withWarehouseId(path.get("warehouseId"))
-                            .withStartDate(LocalDate.parse("startDate"))
-                            .withEndDate(LocalDate.parse("endDate"))
+                            .withStartDate(path.get("startDate"))
+                            .withEndDate(path.get("endDate"))
                             .build());
 
                     return input.fromUserClaims(claims ->

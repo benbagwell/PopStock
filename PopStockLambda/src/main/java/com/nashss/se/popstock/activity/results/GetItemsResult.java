@@ -17,8 +17,8 @@ public class GetItemsResult {
         return items;
     }
 
-    public static GetItemsResult.Builder builder() {
-        return new GetItemsResult.Builder();
+    public static Builder builder() {
+        return new Builder();
     }
 
     @JsonPOJOBuilder

@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +27,8 @@ public class GetTransactionReportActivity {
 
     public GetTransactionReportResult handleRequest(final GetTransactionReportRequest getTransactionReportRequest) {
 
-        List<Transaction> transactions = transactionDao.getTransactionsBetweenDates(getTransactionReportRequest.getWarehouseId(),getTransactionReportRequest.getStartDate(),getTransactionReportRequest.getEndDate());
+        List<Transaction> transactions = transactionDao.getTransactionsBetweenDates(getTransactionReportRequest.getWarehouseId(),
+                LocalDate.parse(getTransactionReportRequest.getStartDate()),LocalDate.parse(getTransactionReportRequest.getEndDate()));
 
         return GetTransactionReportResult.builder()
                 .withTransactions(transactions.stream()

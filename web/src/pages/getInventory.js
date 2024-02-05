@@ -6,7 +6,7 @@ import DataStore from "../util/DataStore";
 class GetInventory extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['mount', 'loadInventory', 'createSubmit', 'clientLoaded', 'addHTMLRowsToTable'], this);
+        this.bindClassMethods(['mount', 'loadInventory', 'createSubmit', 'reportSubmit', 'clientLoaded', 'addHTMLRowsToTable'], this);
    
         this.dataStore = new DataStore();
         this.header = new Header(this.dataStore);
@@ -18,6 +18,7 @@ class GetInventory extends BindingClass {
         this.clientLoaded();
         this.loadInventory();
         document.getElementById('create-item-button').addEventListener('click', this.createSubmit);
+        document.getElementById('transaction-report-button').addEventListener('click', this.reportSubmit);
     }
     
     async clientLoaded() {
@@ -38,6 +39,15 @@ class GetInventory extends BindingClass {
         window.location.href = `/createItem.html?warehouse=${warehouse}&name=${warehouseName}`; 
     }
 
+    async reportSubmit(evt) {
+        evt.preventDefault();
+
+        const warehouse = this.dataStore.get('warehouse');
+        const warehouseName = this.dataStore.get('warehouseName');
+        
+        window.location.href = `/transactions.html?warehouse=${warehouse}&name=${warehouseName}`;
+    }
+
     async loadInventory() {
         console.log("Inside loadInventory");
         const inventory = await this.client.getInventory(this.dataStore.get('warehouse'));
@@ -50,6 +60,7 @@ class GetInventory extends BindingClass {
     async addHTMLRowsToTable(inventoryTableHTML) {
 
         const warehouseId = this.dataStore.get('warehouse');
+        const warehouseName = this.dataStore.get('warehouseName');
         const inventory = this.dataStore.get('inventory');
        
         
@@ -77,7 +88,7 @@ class GetInventory extends BindingClass {
                 updateButton.textContent = 'Update';
                 updateButton.className = 'button';
                 updateButton.addEventListener('click', () => {
-                    window.location.href = '/createTransaction.html?warehouse=' + warehouseId + "&name=" + item.name;
+                    window.location.href = '/createTransaction.html?warehouse=' + warehouseId + "&warehouseName=" + warehouseName + "&item=" + item.itemId + "&itemName=" + item.name;
                 });
                 updateButtonCell.appendChild(updateButton);
                 row.appendChild(updateButtonCell);
@@ -86,8 +97,7 @@ class GetInventory extends BindingClass {
             }
 
          }
-
-        
+ 
     }
 
 }
