@@ -5,7 +5,6 @@ import com.nashss.se.popstock.activity.results.GetItemsResult;
 import com.nashss.se.popstock.dynamodb.ItemDao;
 import com.nashss.se.popstock.dynamodb.models.Item;
 import com.nashss.se.popstock.models.ItemModel;
-import com.nashss.se.popstock.models.WarehouseModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

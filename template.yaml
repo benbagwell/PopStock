@@ -223,6 +223,8 @@ Resources:
               - Effect: Allow
                 Action: dynamodb:*
                 Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/transactions"
+                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/transactions/index/shipping_date_index"
+              
 
   #-----------------------------------------------------
   # Lambda Functions Configuration

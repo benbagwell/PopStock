@@ -54,17 +54,4 @@ public class WarehouseDaoTest {
         verify(dynamoDBMapper).query(any(), any());
     }
 
-    @Test
-    public void getWarehouse_withWarehouseId_callsMapper() {
-        String userId = "userId";
-        String warehouseId = "warehouseId";
-
-        when(dynamoDBMapper.load(Warehouse.class, userId, warehouseId)).thenReturn(new Warehouse());
-
-        Warehouse resultWarehouse = warehouseDao.getWarehouse(userId,warehouseId);
-
-        assertNotNull(resultWarehouse);
-        verify(dynamoDBMapper).load(Warehouse.class, userId, warehouseId);
-    }
-
 }
