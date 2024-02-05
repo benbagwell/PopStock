@@ -56,7 +56,7 @@ public class TransactionDao {
         DynamoDBQueryExpression<Transaction> queryExpression = new DynamoDBQueryExpression<Transaction>()
                 .withIndexName(Transaction.SHIPPING_DATE_INDEX)
                 .withConsistentRead(false)
-                .withKeyConditionExpression("warehouseId = :warehouseId AND dateOfEvent BETWEEN :startDate and :today")
+                .withKeyConditionExpression("warehouse_id = :warehouseId and transaction_date BETWEEN :startDate and :endDate")
                 .withExpressionAttributeValues(valueMap);
 
         PaginatedQueryList<Transaction> transactions = dynamoDBMapper.query(Transaction.class, queryExpression);

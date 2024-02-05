@@ -4,7 +4,7 @@ import BindingClass from '../util/bindingClass';
 import DataStore from '../util/DataStore';
 
 
-class CreateItem extends BindingClass {
+class CreateTransaction extends BindingClass {
     constructor() {
         super();
         this.bindClassMethods(['mount', 'submit','clientLoaded'], this);
@@ -22,9 +22,16 @@ class CreateItem extends BindingClass {
     clientLoaded() {
         const urlParams = new URLSearchParams(window.location.search);
         const warehouse = urlParams.get('warehouse');
-        const name = urlParams.get('name');
+        const item = urlParams.get('item');
+        const warehouseName = urlParams.get('warehouseName');
+        const itemName = urlParams.get('itemName');
+
+        document.getElementById('warehouse-item-name').innerText = "Update Inventory for Item: \x22" + itemName + "\x22 in warehouse: \x22" + warehouseName + "\x22";
+
         this.dataStore.set('warehouse', warehouse);
-        this.dataStore.set('warehouseName', name);
+        this.dataStore.set('item', item);
+        this.dataStore.set('warehouseName', warehouseName);
+        this.dataStore.set('itemName', itemName);
     }
 
     async submit(evt) {
@@ -32,14 +39,18 @@ class CreateItem extends BindingClass {
 
         const warehouse = this.dataStore.get('warehouse');
         const warehouseName = this.dataStore.get('warehouseName');
+        const item = this.dataStore.get('item');
+        const count = document.getElementById('count').value;
+        const date = document.getElementById('date').value;
+        const partnerId = document.getElementById('partner-id').value;
+        const transactionType = document.getElementById('transaction-type').value;
 
         const createButton = document.getElementById('create');
 
         createButton.innerText = 'Loading...';
 
-        const name = document.getElementById('name').value;
 
-        await this.client.createItem(warehouse,name);
+        await this.client.createTransaction(warehouse, item, count, date, partnerId, transactionType);
 
         window.location.href = `/inventory.html?warehouse=${warehouse}&name=${warehouseName}`;
     }
@@ -47,8 +58,8 @@ class CreateItem extends BindingClass {
 }
 
 const main = async () => {
-    const createItem = new CreateItem();
-    createItem.mount();
+    const createTransaction = new CreateTransaction();
+    createTransaction.mount();
 };
 
 window.addEventListener('DOMContentLoaded', main);

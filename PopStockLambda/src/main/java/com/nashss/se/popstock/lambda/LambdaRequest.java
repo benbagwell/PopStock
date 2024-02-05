@@ -5,6 +5,7 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,6 +32,7 @@ public class LambdaRequest<T> extends APIGatewayProxyRequestEvent {
     public T fromBody(Class<T> requestClass) {
         log.info("Attempting to deserialize object from request body ({}).", requestClass.getSimpleName());
         try {
+            MAPPER.registerModule(new JavaTimeModule());
             return MAPPER.readValue(super.getBody(), requestClass);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(

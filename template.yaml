@@ -425,7 +425,7 @@ Resources:
         PopStock:
           Type: Api
           Properties:
-            Path: /warehouses/{warehouseId}/transactions
+            Path: /warehouses/{warehouseId}/transactions/{startDate}/{endDate}
             Method: get  
 
   #-----------------------------------------------------

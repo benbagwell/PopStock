@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript" src="assets/getTransactions.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body class="background">
+    <header class="header" id="header"></header>
+    <div class="card">
+        <h2 id="warehouse-name">Warehouse Transactions Report</h2>
+        <p class="button-group">
+            <a href="#" class="button" id="back-button">Back to Warehouse</a>
+            <l>
+                <label>Report Start Date: </label>
+                <input type="date" required class="validated-field" id="start-date" placeholder="" autofocus>
+                <label>Report End Date: </label>
+                <input type="date" required class="validated-field" id="end-date" placeholder="" autofocus>
+                <a href="#" class="button" id="start-report-button" style="text-align: left;">Get Report</a>
+            </l>
+        </p>
+        <table id='report-table'></table>
+    </div>
+    </body>
+</html>
