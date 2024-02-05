@@ -16,8 +16,6 @@ public interface ServiceComponent {
 
     GetAllWarehousesActivity provideGetAllWarehousesActivity();
 
-    GetWarehouseActivity provideGetWarehouseActivity();
-
     UpdateWarehouseActivity provideUpdateWarehouseActivity();
 
     DeleteWarehouseActivity provideDeleteWarehouseActivity();

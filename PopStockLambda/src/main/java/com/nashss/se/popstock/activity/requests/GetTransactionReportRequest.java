@@ -3,8 +3,6 @@ package com.nashss.se.popstock.activity.requests;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
-import java.time.LocalDate;
-
 @JsonDeserialize(builder = GetTransactionReportRequest.Builder.class)
 public class GetTransactionReportRequest {
 

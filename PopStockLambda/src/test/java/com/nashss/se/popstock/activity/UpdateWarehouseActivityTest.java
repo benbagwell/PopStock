@@ -1,8 +1,6 @@
 package com.nashss.se.popstock.activity;
 
-import com.nashss.se.popstock.activity.requests.GetWarehouseRequest;
 import com.nashss.se.popstock.activity.requests.UpdateWarehouseRequest;
-import com.nashss.se.popstock.activity.results.GetWarehouseResult;
 import com.nashss.se.popstock.activity.results.UpdateWarehouseResult;
 import com.nashss.se.popstock.dynamodb.WarehouseDao;
 import com.nashss.se.popstock.dynamodb.models.Warehouse;

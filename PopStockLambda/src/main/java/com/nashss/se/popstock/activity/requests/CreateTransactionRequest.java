@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import java.time.LocalDate;
-import java.util.Map;
 
 @JsonDeserialize(builder = CreateTransactionRequest.Builder.class)
 public class CreateTransactionRequest {
