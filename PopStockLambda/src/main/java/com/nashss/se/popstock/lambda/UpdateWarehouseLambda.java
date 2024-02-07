@@ -13,11 +13,14 @@ public class UpdateWarehouseLambda extends LambdaActivityRunner<UpdateWarehouseR
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<UpdateWarehouseRequest> input, Context context) {
         return super.runActivity(
             () -> {
+                UpdateWarehouseRequest unauthenticatedUpdateRequest = input.fromPath(path -> UpdateWarehouseRequest.builder()
+                        .withWarehouseId(path.get("warehouseId"))
+                        .build());
                 UpdateWarehouseRequest unauthenticatedRequest = input.fromBody(UpdateWarehouseRequest.class);
                 return input.fromUserClaims(claims ->
                         UpdateWarehouseRequest.builder()
                                 .withUserId(claims.get("email"))
-                                .withWarehouseId(unauthenticatedRequest.getWarehouseId())
+                                .withWarehouseId(unauthenticatedUpdateRequest.getWarehouseId())
                                 .withName(unauthenticatedRequest.getName())
                                 .build());
             },
