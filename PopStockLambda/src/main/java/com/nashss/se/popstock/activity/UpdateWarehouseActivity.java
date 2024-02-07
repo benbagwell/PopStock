@@ -24,7 +24,7 @@ public class UpdateWarehouseActivity {
 
     public UpdateWarehouseResult handleRequest(final UpdateWarehouseRequest updateWarehouseRequest) {
 
-        Warehouse warehouse = warehouseDao.getWarehouse(updateWarehouseRequest.getUserId(),
+path.get        Warehouse warehouse = warehouseDao.getWarehouse(updateWarehouseRequest.getUserId(),
                 updateWarehouseRequest.getWarehouseId());
         warehouse.setName(updateWarehouseRequest.getName());
         warehouseDao.saveWarehouse(warehouse);

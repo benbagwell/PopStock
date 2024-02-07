@@ -113,9 +113,8 @@ export default class PopStockClient extends BindingClass {
     async updateWarehouse(warehouse,name) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can udpate Warehouses.");
-            const response = await this.axiosClient.put(`warehouses`,  {
+            const response = await this.axiosClient.put(`warehouses/${warehouse}`,  {
                 name:name,
-                warehouseId:warehouse,
             }, {
                 headers: {
                    Authorization: `Bearer ${token}`

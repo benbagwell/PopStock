@@ -50,6 +50,7 @@ class GetTransactions extends BindingClass {
  
         this.dataStore.set('transactions', transactions);
         const reportTableHTML = document.getElementById('report-table');
+        reportTableHTML.innerHTML = '';
         this.addHTMLRowsToTable(reportTableHTML);
     }
 

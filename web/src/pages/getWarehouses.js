@@ -2,6 +2,7 @@ import PopStockClient from '../api/popStockClient';
 import Header from '../components/header';
 import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
+import Authenticator from "../api/authenticator";
 
 const WAREHOUSE_LIST = 'warehouseList';
 const EMPTY_DATASTORE_STATE = {
@@ -12,7 +13,7 @@ class GetWarehouses extends BindingClass {
     constructor() {
         super();
         this.bindClassMethods(['mount', 'loadWarehouses','addHTMLRowsToTable'], this);
-
+        this.authenticator = new Authenticator();
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
         this.header = new Header(this.dataStore);
     }
@@ -32,7 +33,19 @@ class GetWarehouses extends BindingClass {
              });
 
         const warehousesTableHTML = document.getElementById('warehouses-table');
-        this.addHTMLRowsToTable(warehousesTableHTML);
+        const isLoggedIn = await this.authenticator.isUserLoggedIn();
+
+        if(isLoggedIn) {
+            this.addHTMLRowsToTable(warehousesTableHTML);
+        } else {
+            const createButton = document.getElementById('create');
+            createButton.style.display = "none";
+            const noWarehousesCell = document.createElement('td');
+            noWarehousesCell.textContent = "Please log in to see your warehouses.";
+            const row = document.createElement('tr');
+            row.appendChild(noWarehousesCell);
+            warehousesTableHTML.appendChild(row);
+        }
     }
 
     async addHTMLRowsToTable(warehousesTableHTML) {
